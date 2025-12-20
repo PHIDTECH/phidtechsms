@@ -13,7 +13,7 @@ class CreateAdminUser extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:create {--phone=+255123456789} {--password=admin123} {--name=Admin} {--email=admin@rodlinesms.com}';
+    protected $signature = 'admin:create {--phone=+255123456789} {--password=admin123} {--name=Admin} {--email=admin@phidtechsms.com}';
 
     /**
      * The console command description.

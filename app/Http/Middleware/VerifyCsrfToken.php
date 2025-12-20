@@ -18,6 +18,6 @@ class VerifyCsrfToken extends Middleware
         'payments/webhook',
         // Allow Selcom package routes (prefix may vary via SELCOM_PREFIX)
         'selcom/*',
-        'rodlinesms/*',
+        'phidtechsms/*',
     ];
 }

@@ -92,7 +92,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div>
                 <h2 class="text-2xl font-bold text-gray-900">About Us</h2>
-                <p class="mt-3 text-gray-600">At RodLineSMS, we specialize in providing top-quality bulk SMS solutions tailored to meet the communication needs of modern businesses. We understand the power of direct, timely, and impactful messaging, which is why we strive to offer an efficient platform for sending unlimited promotional and transactional SMS to your target audience.</p>
+                <p class="mt-3 text-gray-600">At Phidtechsms, we specialize in providing top-quality bulk SMS solutions tailored to meet the communication needs of modern businesses. We understand the power of direct, timely, and impactful messaging, which is why we strive to offer an efficient platform for sending unlimited promotional and transactional SMS to your target audience.</p>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="rounded-xl border border-gray-200 p-4">
@@ -185,9 +185,9 @@
                     <p class="mt-2 text-gray-600">Hello, contact us for the best experience of our services.</p>
                     <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="rounded-lg border border-gray-200 p-4"><div class="text-sm text-gray-500">Address</div><div class="font-semibold text-gray-900">Dar es Salaam, Tanzania</div></div>
-                        <div class="rounded-lg border border-gray-200 p-4"><div class="text-sm text-gray-500">Call Us</div><div class="font-semibold text-gray-900">0769 500 302</div></div>
-                        <a href="https://wa.me/255769500302" class="rounded-lg border border-gray-200 p-4 hover:bg-gray-50"><div class="text-sm text-gray-500">Chat on WhatsApp</div><div class="font-semibold text-gray-900">Click to Chat</div></a>
-                        <a href="mailto:info@rodlinesms.co.tz" class="rounded-lg border border-gray-200 p-4 hover:bg-gray-50"><div class="text-sm text-gray-500">Email Us</div><div class="font-semibold text-gray-900">info@rodlinesms.co.tz</div></a>
+                        <div class="rounded-lg border border-gray-200 p-4"><div class="text-sm text-gray-500">Call Us</div><div class="font-semibold text-gray-900">0682 188 544</div></div>
+                        <a href="https://wa.me/255682188544" class="rounded-lg border border-gray-200 p-4 hover:bg-gray-50"><div class="text-sm text-gray-500">Chat on WhatsApp</div><div class="font-semibold text-gray-900">Click to Chat</div></a>
+                        <a href="mailto:info@phidtechsms.co.tz" class="rounded-lg border border-gray-200 p-4 hover:bg-gray-50"><div class="text-sm text-gray-500">Email Us</div><div class="font-semibold text-gray-900">info@phidtechsms.co.tz</div></a>
                     </div>
                 </div>
             </div>
@@ -229,8 +229,8 @@
                     <ul class="mt-3 space-y-2">
                         <li>Dar es Salaam</li>
                         <li>Tanzania</li>
-                        <li>Phone: +255 769 500 302</li>
-                        <li>Email: info@rodlinesms.co.tz</li>
+                        <li>Phone: +255 682 188 544</li>
+                        <li>Email: info@phidtechsms.co.tz</li>
                     </ul>
                 </div>
                 <div>

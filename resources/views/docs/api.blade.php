@@ -20,7 +20,7 @@
 <body>
   <div class="wrap">
     <h1>Phidsms API <span class="pill">v1</span></h1>
-    <p>Base URL: <code>https://rodlinesms.co.tz/api/v1</code></p>
+    <p>Base URL: <code>https://phidtechsms.co.tz/api/v1</code></p>
 
     <div class="card">
       <h2>Authentication</h2>
@@ -43,7 +43,7 @@
           <tr><td>sender_id</td><td>string?</td><td>Optional approved sender ID (<= 11 chars).</td></tr>
         </tbody>
       </table>
-<pre><code>curl -X POST https://rodlinesms.co.tz/api/v1/sms/send \
+<pre><code>curl -X POST https://phidtechsms.co.tz/api/v1/sms/send \
   -H "X-API-KEY: rk_XXXXXXXX" \
   -H "X-API-SECRET: rs_YYYYYYYY" \
   -H "Content-Type: application/json" \
@@ -83,7 +83,7 @@
       <ul>
         <li>Credits are charged per recipient per message part (GSM-7: 160 chars per part, Unicode: 70; concatenated parts apply).</li>
         <li>Webhook delivery reports can be added on request.</li>
-        <li>Contact support at <a href="mailto:support@rodlinesms.co.tz">support@rodlinesms.co.tz</a>.</li>
+        <li>Contact support at <a href="mailto:support@phidtechsms.co.tz">support@phidtechsms.co.tz</a>.</li>
       </ul>
     </div>
   </div>
