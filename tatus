@@ -1,0 +1,31 @@
+* [33m2db1b69[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Rebrand to Phidsms; update UI titles/logos; add hero image; improve login/register styling; implement email notifications (welcome, sender ID status, credits); ensure payment success finalizer credits; API docs refreshed
+* [33m420f466[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m heroemail configuration
+* [33m5058f17[m email configuration
+* [33mab9afb2[m email verification
+* [33m92b516f[m pending completed
+* [33m7d1aaee[m sms autotopup fixed
+* [33me99c415[m Login and register modified
+* [33mc0fe1f6[m ops: add /test-mail endpoint to send a test email via configured SMTP
+* [33m2820f99[m fix(vite): add CDN fallback when build manifest is missing to prevent 500 on auth pages
+* [33mc6b05e2[m checkout: brand as RodLine SMS, order prefix from APP_NAME, buyer/billing names updated
+* [33mc4a0ccd[m selcom: update checkout webhook handling and push latest changes
+* [33m027ef14[m contacts import: proceed validation for authenticated users (phone-only mapping), replace Unauthorized 403 with audit logging
+* [33m2e021a0[m sender-ids: success UX (no 403 on show), dashboard status card, and notifications on apply/approve/reject
+* [33m77d2c34[m sender-ids: graceful apply flow (no user-facing 403), dashboard widget for status, and email notifications on admin approve/reject/bulk
+* [33m502859a[m fix(users): make phone nullable to support email-only registration
+* [33m0300f0a[m cleanup: remove phone OTP service and debug/test artifacts; phone auth fully removed
+* [33m35a02f3[m cleanup(auth): remove phone auth controller and views; switch remaining logout references to email routes
+* [33m569f4a6[m auth: remove phone-based login/register and switch all links and logout to email/password routes
+* [33m06173c0[m chore(env): set SMTP to smtp.hostinger.com with TLS and add optional IMAP placeholders
+* [33m55fad1d[m feat: send welcome SMS after registration (email) and after phone OTP verification
+* [33m38397ba[m fix(otp,sender): add timeout/retry and SMS fallback for OTP; robust sender-name request with Basic Auth, /public/v1 fallback, and legacy headers
+* [33m44f1b9b[m restore: add all local files back to repository
+* [33mfc1851b[m remove all files from repository snapshot (keep local untracked)
+* [33m11ceda4[m sync: replace remote with full local working tree (tracked + untracked)
+* [33m184520a[m fix: root .htaccess set DirectoryIndex and root rewrite to public/index.php to prevent 404 at /
+* [33md6df488[m chore: root .htaccess rewrites to public/ to serve app at root domain
+* [33ma871b70[m chore: commit latest changes across controllers, views, and config
+* [33m4ad7f5f[m UI updates: dashboard sidebar filters/summary, simplified wallet top-up to single-page, header Send SMS link, and email reminder banner for missing emails
+* [33m170b69e[m changes made
+* [33mabbf2a8[m Mew changes made today
+* [33m395a792[m first commit

@@ -1,0 +1,15 @@
+﻿
+storage\logs\laravel.log:19258:[2025-11-20 06:58:46] 
+local.ERROR: Failed to send SMS via Beem {"recipient":"+
+255769500302","error":{"data":{"code":111,"message":"Inv
+alid Sender Id"}},"status":400} 
+storage\logs\laravel.log:19259:[2025-11-20 07:04:04] 
+local.ERROR: Failed to send SMS via Beem {"recipient":"+
+255769500302","error":{"data":{"code":111,"message":"Inv
+alid Sender Id"}},"status":400} 
+storage\logs\laravel.log:19300:[2025-11-20 07:33:42] 
+local.ERROR: Failed to send bulk SMS via Beem {"recipien
+t_count":1,"error":{"data":{"code":111,"message":"Invali
+d Sender Id"}},"status":400} 
+
+

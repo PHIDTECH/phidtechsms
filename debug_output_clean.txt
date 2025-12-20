@@ -1,0 +1,13 @@
+User Found: ID 9, Name: rodgence kagaba, Phone: +255621764385
+Current SMS Credits: 5
+
+Latest Campaign (ID: 9):
+Name: rodgence kagaba
+Status: failed
+Failure Reason: Insufficient SMS credits
+Estimated Parts: 1
+Estimated Recipients: 1
+Message: Hello world
+Total SMS Messages created: 1
+Sum of parts_count in messages: 1
+ - Msg ID: 1, Phone: +255769500302, Parts: 1, Status: queued

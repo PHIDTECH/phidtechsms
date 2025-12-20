@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+DirectoryIndex public/index.php
+
+# If requesting the root, serve public/index.php
+RewriteRule ^$ public/index.php [L]
+
+# Skip rewriting if already under /public or request maps to an existing file/dir
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Send everything else to /public
+RewriteRule ^(.*)$ public/$1 [L,QSA]
+</IfModule>

@@ -1,0 +1,5 @@
+﻿[2025-11-20 06:58:41] local.ERROR: Failed to send SMS via Beem {"recipient":"+255769500302","error":{"data":{"code":111,"message":"Invalid Sender Id"}},"status":400} 
+[2025-11-20 06:58:43] local.ERROR: Failed to send SMS via Beem {"recipient":"+255769500302","error":{"data":{"code":111,"message":"Invalid Sender Id"}},"status":400} 
+[2025-11-20 06:58:45] local.ERROR: Failed to send SMS via Beem {"recipient":"+255769500302","error":{"data":{"code":111,"message":"Invalid Sender Id"}},"status":400} 
+[2025-11-20 06:58:46] local.ERROR: Failed to send SMS via Beem {"recipient":"+255769500302","error":{"data":{"code":111,"message":"Invalid Sender Id"}},"status":400} 
+[2025-11-20 07:04:04] local.ERROR: Failed to send SMS via Beem {"recipient":"+255769500302","error":{"data":{"code":111,"message":"Invalid Sender Id"}},"status":400} 
