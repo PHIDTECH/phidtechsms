@@ -1,0 +1,24 @@
+[21-Dec-2025 10:36:43 UTC] PHP Warning:  require(/home/phidtech/phidsms.co.tz/vendor/autoload.php): Failed to open stream: No such file or directory in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 10:36:43 UTC] PHP Warning:  require(/home/phidtech/phidsms.co.tz/vendor/autoload.php): Failed to open stream: No such file or directory in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 10:36:43 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/phidtech/phidsms.co.tz/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/phidtech/phidsms.co.tz/artisan:10
+Stack trace:
+#0 {main}
+  thrown in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:34:17 UTC] PHP Warning:  require(/home/phidtech/phidsms.co.tz/vendor/autoload.php): Failed to open stream: No such file or directory in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:34:17 UTC] PHP Warning:  require(/home/phidtech/phidsms.co.tz/vendor/autoload.php): Failed to open stream: No such file or directory in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:34:17 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/phidtech/phidsms.co.tz/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/phidtech/phidsms.co.tz/artisan:10
+Stack trace:
+#0 {main}
+  thrown in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:36:34 UTC] PHP Warning:  require(/home/phidtech/phidsms.co.tz/vendor/autoload.php): Failed to open stream: No such file or directory in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:36:34 UTC] PHP Warning:  require(/home/phidtech/phidsms.co.tz/vendor/autoload.php): Failed to open stream: No such file or directory in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:36:34 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/phidtech/phidsms.co.tz/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/phidtech/phidsms.co.tz/artisan:10
+Stack trace:
+#0 {main}
+  thrown in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:37:57 UTC] PHP Warning:  require(/home/phidtech/phidsms.co.tz/vendor/autoload.php): Failed to open stream: No such file or directory in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:37:57 UTC] PHP Warning:  require(/home/phidtech/phidsms.co.tz/vendor/autoload.php): Failed to open stream: No such file or directory in /home/phidtech/phidsms.co.tz/artisan on line 10
+[21-Dec-2025 12:37:57 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/phidtech/phidsms.co.tz/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/phidtech/phidsms.co.tz/artisan:10
+Stack trace:
+#0 {main}
+  thrown in /home/phidtech/phidsms.co.tz/artisan on line 10

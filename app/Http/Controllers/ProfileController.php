@@ -42,13 +42,13 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone_number' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|max:20',
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->phone_number,
+            'phone' => $request->phone,
         ]);
 
         return redirect()->route('profile.index')

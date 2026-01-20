@@ -432,7 +432,7 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone_number' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|max:20',
             'role' => 'required|in:user,admin',
             'is_active' => 'boolean',
             'sms_credits' => 'nullable|integer|min:0',
@@ -441,7 +441,7 @@ class AdminController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->phone_number,
+            'phone' => $request->phone,
             'role' => $request->role,
             'is_active' => $request->has('is_active'),
             'sms_credits' => $request->sms_credits ?? $user->sms_credits,
@@ -472,7 +472,7 @@ class AdminController extends Controller
                   ->orWhere('gateway_transaction_id', 'like', "%{$search}%")
                   ->orWhereHas('user', function($userQuery) use ($search) {
                       $userQuery->where('name', 'like', "%{$search}%")
-                                ->orWhere('phone_number', 'like', "%{$search}%");
+                                ->orWhere('phone', 'like', "%{$search}%");
                   });
             });
         }

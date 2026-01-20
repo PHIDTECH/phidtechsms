@@ -365,7 +365,7 @@ class AdminReportController extends Controller
                 foreach ($users as $user) {
                     fputcsv($file, [
                         $user->name,
-                        $user->phone_number,
+                        $user->phone,
                         $user->email,
                         $user->is_active ? 'Active' : 'Inactive',
                         $user->campaigns->count(),

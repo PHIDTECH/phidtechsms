@@ -107,7 +107,7 @@ class PaymentController extends Controller
             ]);
 
             // Normalize MSISDN for Selcom (expects 255XXXXXXXXX)
-            $phone = $user->phone_number ?? ($request->input('phone') ?? '');
+            $phone = $user->phone ?? ($request->input('phone') ?? '');
             if ($phone) {
                 $digits = preg_replace('/\D+/', '', $phone);
                 if (str_starts_with($digits, '0')) {
@@ -130,7 +130,7 @@ class PaymentController extends Controller
             $payload = [
                 'name' => $user->name ?: 'Customer',
                 'email' => $user->email ?: ('user'.$user->id.'@phidsms.local'),
-                'phone' => $phone ?: ($user->phone_number ?: ''),
+                'phone' => $phone ?: ($user->phone ?: ''),
                 'amount' => (string) $amount,
                 'currency' => 'TZS',
                 'transaction_id' => $payment->reference,
