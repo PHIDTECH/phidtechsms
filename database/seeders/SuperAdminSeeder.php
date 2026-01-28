@@ -15,6 +15,7 @@ class SuperAdminSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'email' => 'phidtechnology@gmail.com',
+                'phone' => '255000000000',
                 'password' => Hash::make('Dativa@@5006'),
                 'role' => 'admin',
                 'is_active' => true,
