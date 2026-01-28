@@ -142,7 +142,7 @@ class Setting extends Model
             'secret_key' => self::get('beem_secret_key'),
             // Align default with official docs (no /public)
             'base_url' => self::get('beem_base_url', 'https://apisms.beem.africa/v1'),
-            'default_sender_id' => self::get('beem_default_sender_id', 'PhidtechSMS'),
+            'default_sender_id' => self::get('beem_default_sender_id', 'Phidtech'),
         ];
     }
 
