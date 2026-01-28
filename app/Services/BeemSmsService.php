@@ -204,32 +204,74 @@ class BeemSmsService
             }
 
             // Official Beem Africa API balance endpoint
-            $endpoints = [
-                '/vendors/balance'
-            ];
-
-            foreach ($endpoints as $endpoint) {
-                $result = $this->makeApiRequest('GET', $endpoint);
+            $endpoint = '/vendors/balance';
+            $result = $this->makeApiRequest('GET', $endpoint);
+            
+            Log::info('Beem Balance API Request', [
+                'url' => $result['url'] ?? $this->baseUrl . $endpoint,
+                'success' => $result['success'],
+                'status_code' => $result['status_code'] ?? null,
+                'response' => $result['data'] ?? ($result['response'] ?? null)
+            ]);
+            
+            if ($result['success'] && isset($result['data'])) {
+                $balance = $this->extractBalanceFromResponse($result['data']);
                 
-                if ($result['success'] && isset($result['data'])) {
-                    $balance = $this->extractBalanceFromResponse($result['data']);
+                if ($balance !== null) {
+                    return [
+                        'success' => true,
+                        'balance' => $balance,
+                        'currency' => 'TZS',
+                        'sms_credits' => $this->convertToSmsCredits($balance),
+                        'endpoint_used' => $endpoint
+                    ];
+                }
+            }
+            
+            // Try fallback to /public/v1 base URL if primary fails
+            if (!$result['success'] || !isset($result['data'])) {
+                $altBaseUrl = str_replace('/v1', '/public/v1', rtrim($this->baseUrl, '/'));
+                if ($altBaseUrl !== $this->baseUrl) {
+                    $altUrl = $altBaseUrl . $endpoint;
                     
-                    if ($balance !== null) {
-                        return [
-                            'success' => true,
-                            'balance' => $balance,
-                            'currency' => 'TZS',
-                            'sms_credits' => $this->convertToSmsCredits($balance),
-                            'endpoint_used' => $endpoint
-                        ];
+                    Log::info('Beem Balance API Fallback Attempt', ['url' => $altUrl]);
+                    
+                    $altResult = Http::withBasicAuth($this->apiKey, $this->secretKey)
+                        ->timeout(30)
+                        ->withOptions(['verify' => false])
+                        ->withHeaders(['Accept' => 'application/json'])
+                        ->get($altUrl);
+                    
+                    if ($altResult->successful()) {
+                        $altData = $altResult->json();
+                        Log::info('Beem Balance API Fallback Response', ['data' => $altData]);
+                        
+                        $balance = $this->extractBalanceFromResponse($altData);
+                        if ($balance !== null) {
+                            return [
+                                'success' => true,
+                                'balance' => $balance,
+                                'currency' => 'TZS',
+                                'sms_credits' => $this->convertToSmsCredits($balance),
+                                'endpoint_used' => $endpoint . ' (fallback)'
+                            ];
+                        }
                     }
                 }
             }
 
-            // If no endpoint worked, return error
+            // If no endpoint worked, return detailed error
+            $errorMsg = 'Balance endpoint not found or balance data not available';
+            if (isset($result['status_code'])) {
+                $errorMsg .= ' (HTTP ' . $result['status_code'] . ')';
+            }
+            if (isset($result['error'])) {
+                $errorMsg = $result['error'];
+            }
+            
             return [
                 'success' => false,
-                'error' => 'Balance endpoint not found or balance data not available',
+                'error' => $errorMsg,
                 'balance' => 0,
                 'currency' => 'TZS',
                 'sms_credits' => 0
@@ -739,10 +781,18 @@ class BeemSmsService
     {
         try {
             $url = $this->baseUrl . $endpoint;
+            
+            Log::debug('Beem API Request Starting', [
+                'method' => $method,
+                'url' => $url,
+                'has_api_key' => !empty($this->apiKey),
+                'has_secret_key' => !empty($this->secretKey)
+            ]);
 
             $client = Http::withBasicAuth($this->apiKey, $this->secretKey)
                 ->timeout(30)
-                ->retry(3, 1000);
+                ->retry(3, 1000)
+                ->withOptions(['verify' => false]);
 
             $methodLower = strtolower($method);
 
