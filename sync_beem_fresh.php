@@ -30,10 +30,10 @@ if (!$apiKey || !$secretKey) {
 echo "API Key: " . substr($apiKey, 0, 10) . "...\n";
 echo "Credentials loaded successfully.\n\n";
 
-// Step 1: Clear all existing sender IDs
+// Step 1: Clear all existing sender IDs (use DELETE to avoid foreign key issues)
 echo "Step 1: Clearing all existing sender ID records...\n";
 $deletedCount = SenderID::count();
-SenderID::truncate();
+SenderID::query()->delete();
 echo "Deleted {$deletedCount} records.\n\n";
 
 // Step 2: Fetch sender IDs from Beem API
