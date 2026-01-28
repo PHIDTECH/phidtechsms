@@ -39,7 +39,7 @@ return [
         'api_key' => env('BEEM_API_KEY'),
         'secret_key' => env('BEEM_SECRET_KEY'),
         'base_url' => env('BEEM_BASE_URL', 'https://apisms.beem.africa/v1'),
-        'default_sender_id' => env('BEEM_DEFAULT_SENDER_ID', 'Phidtech'),
+        'default_sender_id' => env('BEEM_DEFAULT_SENDER_ID', 'PhidtechSMS'),
     ],
 
     'beem_contacts' => [
