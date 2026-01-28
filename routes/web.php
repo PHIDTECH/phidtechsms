@@ -33,8 +33,8 @@ Route::get('/', function () {
 // Test mail endpoint (temporary)
 Route::get('/test-mail', function () {
     $to = request('to', 'rodgencetv@gmail.com');
-    $subject = 'RodLine SMS Test Email';
-    $body = "Hello,\n\nThis is a test email from RodLine SMS.\nIf you received this, SMTP is working.\n\nRegards,\nRodLine SMS";
+    $subject = 'Phidtech SMS Test Email';
+    $body = "Hello,\n\nThis is a test email from Phidtech SMS.\nIf you received this, SMTP is working.\n\nRegards,\nPhidtech SMS";
     try {
         Mail::raw($body, function ($m) use ($to, $subject) {
             $m->to($to)->subject($subject);

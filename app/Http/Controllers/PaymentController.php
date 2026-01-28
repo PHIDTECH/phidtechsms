@@ -443,7 +443,7 @@ class PaymentController extends Controller
                                     . '<p>Your payment has been completed. ' . e((string) $payment->credits) . ' SMS credits added to your account.</p>'
                                     . '<p><a href="' . route('wallet.index') . '" style="display:inline-block;background:#4f46e5;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none">View Dashboard</a></p>';
                                 \Illuminate\Support\Facades\Mail::html($html, function ($m) use ($user) {
-                                    $m->to($user->email)->subject('RodLine SMS: Credits Added');
+                                    $m->to($user->email)->subject('Phidtech SMS: Credits Added');
                                 });
                             } catch (\Throwable $e) {}
                         }
@@ -491,7 +491,7 @@ class PaymentController extends Controller
                                         . '<p>Your payment has been completed. ' . e((string) $payment->credits) . ' SMS credits added to your account.</p>'
                                         . '<p><a href="' . route('wallet.index') . '" style="display:inline-block;background:#4f46e5;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none">View Dashboard</a></p>';
                                     \Illuminate\Support\Facades\Mail::html($html, function ($m) use ($user) {
-                                        $m->to($user->email)->subject('RodLine SMS: Credits Added');
+                                        $m->to($user->email)->subject('Phidtech SMS: Credits Added');
                                     });
                                 } catch (\Throwable $e) {}
                             }
@@ -594,7 +594,7 @@ class PaymentController extends Controller
                                 . '<p>Your payment has been completed. ' . e((string) $payment->credits) . ' SMS credits added to your account.</p>'
                                 . '<p><a href="' . route('wallet.index') . '" style="display:inline-block;background:#4f46e5;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none">View Dashboard</a></p>';
                             \Illuminate\Support\Facades\Mail::html($html, function ($m) use ($user) {
-                                $m->to($user->email)->subject('RodLine SMS: Credits Added');
+                                $m->to($user->email)->subject('Phidtech SMS: Credits Added');
                             });
                         } catch (\Throwable $e) {}
                     }

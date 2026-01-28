@@ -99,9 +99,9 @@
                             Default Sender ID
                         </label>
                         <input type="text" id="beem_default_sender_id" name="default_sender_id" 
-                               value="{{ old('default_sender_id', $beemSettings['default_sender_id'] ?: 'RodLine') }}"
+                               value="{{ old('default_sender_id', $beemSettings['default_sender_id'] ?: 'Phidtech') }}"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                               placeholder="RodLine" maxlength="11">
+                               placeholder="Phidtech" maxlength="11">
                         @error('default_sender_id')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror

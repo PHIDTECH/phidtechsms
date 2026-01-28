@@ -222,7 +222,7 @@ class WebhookController extends Controller
         return response()->json([
             'status' => 'healthy',
             'timestamp' => now()->toISOString(),
-            'service' => 'RodLine SMS Webhooks',
+            'service' => 'Phidtech SMS Webhooks',
             'version' => '1.0.0'
         ]);
     }

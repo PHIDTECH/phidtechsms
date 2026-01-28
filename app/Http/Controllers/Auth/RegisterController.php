@@ -79,7 +79,7 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         $first = trim(explode(' ', $user->name)[0] ?? '');
-        $msg = 'Hello ' . ($first ?: 'User') . ' You have successfully registered to RodLine SMS Login to apply for a sender ID';
+        $msg = 'Hello ' . ($first ?: 'User') . ' You have successfully registered to Phidtech SMS Login to apply for a sender ID';
         if (!empty($user->phone)) {
             try {
                 $sms = new BeemSmsService();
@@ -90,13 +90,13 @@ class RegisterController extends Controller
 
         if (!empty($user->email)) {
             try {
-                $html = '<h2>Welcome to RodLine SMS</h2>'
+                $html = '<h2>Welcome to Phidtech SMS</h2>'
                     . '<p>Hi ' . e($first ?: 'there') . ', your account has been created successfully.</p>'
                     . '<p>Apply for your Sender ID to start sending branded messages:</p>'
                     . '<p><a href="' . route('sender-ids.create') . '" style="display:inline-block;background:#4f46e5;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none">Apply Sender ID</a></p>'
                     . '<p>Need help? Reply to this email.</p>';
                 Mail::html($html, function ($m) use ($user) {
-                    $m->to($user->email)->subject('Welcome to RodLine SMS');
+                    $m->to($user->email)->subject('Welcome to Phidtech SMS');
                 });
             } catch (\Throwable $e) {
             }

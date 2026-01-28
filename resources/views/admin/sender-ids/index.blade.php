@@ -636,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function() {
                        name="senderid" 
                        maxlength="11"
                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6144f2] focus:border-transparent" 
-                       placeholder="e.g., RodLine"
+                       placeholder="e.g., Phidtech"
                        required>
             </div>
             

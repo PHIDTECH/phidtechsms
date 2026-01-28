@@ -174,7 +174,7 @@ class AdminSenderIDController extends Controller
         $user = $senderID->user;
         if ($user && $user->email) {
             $subject = 'Sender ID Approved';
-            $body = "Hello {$user->name},\n\nYour Sender ID '{$senderID->sender_name}' has been approved. You can start sending with it now.\n\nRegards, RodLine SMS";
+            $body = "Hello {$user->name},\n\nYour Sender ID '{$senderID->sender_name}' has been approved. You can start sending with it now.\n\nRegards, Phidtech SMS";
             try { Mail::raw($body, function ($m) use ($user, $subject) { $m->to($user->email)->subject($subject); }); } catch (\Throwable $e) {}
         }
         
@@ -202,7 +202,7 @@ class AdminSenderIDController extends Controller
         if ($user && $user->email) {
             $subject = 'Sender ID Rejected';
             $reason = $request->admin_notes;
-            $body = "Hello {$user->name},\n\nYour Sender ID '{$senderID->sender_name}' has been rejected. Reason: {$reason}.\nPlease review and re-apply if needed.\n\nRegards, RodLine SMS";
+            $body = "Hello {$user->name},\n\nYour Sender ID '{$senderID->sender_name}' has been rejected. Reason: {$reason}.\nPlease review and re-apply if needed.\n\nRegards, Phidtech SMS";
             try { Mail::raw($body, function ($m) use ($user, $subject) { $m->to($user->email)->subject($subject); }); } catch (\Throwable $e) {}
         }
         
@@ -317,8 +317,8 @@ class AdminSenderIDController extends Controller
             if ($user && $user->email) {
                 $subject = $request->action === 'approve' ? 'Sender ID Approved' : 'Sender ID Rejected';
                 $body = $request->action === 'approve'
-                    ? "Hello {$user->name},\n\nYour Sender ID '{$senderID->sender_name}' has been approved.\n\nRegards, RodLine SMS"
-                    : "Hello {$user->name},\n\nYour Sender ID '{$senderID->sender_name}' has been rejected. Reason: {$request->admin_notes}.\n\nRegards, RodLine SMS";
+                    ? "Hello {$user->name},\n\nYour Sender ID '{$senderID->sender_name}' has been approved.\n\nRegards, Phidtech SMS"
+                    : "Hello {$user->name},\n\nYour Sender ID '{$senderID->sender_name}' has been rejected. Reason: {$request->admin_notes}.\n\nRegards, Phidtech SMS";
                 try { Mail::raw($body, function ($m) use ($user, $subject) { $m->to($user->email)->subject($subject); }); } catch (\Throwable $e) {}
             }
             $count++;

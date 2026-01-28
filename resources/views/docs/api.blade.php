@@ -50,7 +50,7 @@
   -d '{
     "to": ["255712345678", "255765432109"],
     "message": "Hello from Phidsms API",
-    "sender_id": "RODLINE"
+    "sender_id": "PHIDTECH"
   }'
 </code></pre>
       <p>Response</p>

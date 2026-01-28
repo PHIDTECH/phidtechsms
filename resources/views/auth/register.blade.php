@@ -62,7 +62,7 @@
                         <path d="M6 20c0-3.314 2.686-6 6-6s6 2.686 6 6" />
                     </svg>
                 </div>
-                <h2 class="text-3xl font-bold text-white">Join RodLine SMS</h2>
+                <h2 class="text-3xl font-bold text-white">Join Phidtech SMS</h2>
                 <p class="mt-2 text-white/90">Create your account with email and start sending reliable bulk SMS.</p>
             </div>
         </div>
@@ -221,7 +221,7 @@
 
             <div class="border-t border-gray-800 mt-8 pt-8 text-center">
                 <p class="text-gray-400">
-© {{ date('Y') }} RodLine SMS. All rights reserved. Made with ❤️ in Tanzania.
+© {{ date('Y') }} Phidtech SMS. All rights reserved. Made with ❤️ in Tanzania.
                 </p>
             </div>
         </div>

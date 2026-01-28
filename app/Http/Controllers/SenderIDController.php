@@ -119,7 +119,7 @@ class SenderIDController extends Controller
             if (!empty($user->email)) {
                 try {
                     \Illuminate\Support\Facades\Mail::raw(
-                        "Hello {$user->name},\n\nWe’ve received your Sender ID application '{$senderID->sender_name}'. You’ll be notified once it’s reviewed.\n\nRegards, RodLine SMS",
+                        "Hello {$user->name},\n\nWe’ve received your Sender ID application '{$senderID->sender_name}'. You’ll be notified once it’s reviewed.\n\nRegards, Phidtech SMS",
                         function ($m) use ($user) { $m->to($user->email)->subject('Sender ID Application Received'); }
                     );
                 } catch (\Throwable $ex) {}

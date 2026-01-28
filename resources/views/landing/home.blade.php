@@ -166,7 +166,7 @@
     <section id="contact" class="mx-auto max-w-7xl px-4 py-12">
         <h2 class="text-2xl font-bold text-gray-900">What Our Customers Say</h2>
         <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"><p class="text-sm text-gray-700">“RodLine SMS made it easy to reach our customers instantly.”</p><div class="mt-3 text-xs text-gray-500">Retail Business</div></div>
+            <div class="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"><p class="text-sm text-gray-700">“Phidtech SMS made it easy to reach our customers instantly.”</p><div class="mt-3 text-xs text-gray-500">Retail Business</div></div>
             <div class="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"><p class="text-sm text-gray-700">“Setup was simple and delivery reports helped us optimize.”</p><div class="mt-3 text-xs text-gray-500">Events Agency</div></div>
             <div class="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"><p class="text-sm text-gray-700">“Great value and scalability for our growth.”</p><div class="mt-3 text-xs text-gray-500">E‑commerce</div></div>
         </div>
@@ -237,7 +237,7 @@
             <div class="mt-8 border-t border-gray-800 pt-6 text-sm">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div>© Copyright {{ date('Y') }} Phidsms All Rights Reserved</div>
-                    <div>Designed by RodLine Technologies</div>
+                    <div>Designed by Phidtech Technologies</div>
                 </div>
             </div>
         </div>

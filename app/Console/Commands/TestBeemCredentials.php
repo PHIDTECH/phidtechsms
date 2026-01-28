@@ -57,7 +57,7 @@ class TestBeemCredentials extends Command
         $apiKey = $this->ask('Enter API Key');
         $secretKey = $this->secret('Enter Secret Key');
         $baseUrl = $this->ask('Enter Base URL', 'https://apisms.beem.africa/v1');
-        $senderId = $this->ask('Enter Default Sender ID', 'RodLine');
+        $senderId = $this->ask('Enter Default Sender ID', 'Phidtech');
         
         if (!$apiKey || !$secretKey) {
             $this->error('API Key and Secret Key are required!');

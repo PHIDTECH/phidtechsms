@@ -34,7 +34,7 @@ class ConfigureBeemApi extends Command
         $currentApiKey = env('BEEM_API_KEY', 'your_beem_api_key_here');
         $currentSecretKey = env('BEEM_SECRET_KEY', 'your_beem_secret_key_here');
         $currentBaseUrl = env('BEEM_BASE_URL', 'https://apisms.beem.africa/v1');
-        $currentSenderId = env('BEEM_DEFAULT_SENDER_ID', 'RodLine');
+        $currentSenderId = env('BEEM_DEFAULT_SENDER_ID', 'Phidtech');
 
         // Show current configuration
         $this->info('Current Configuration:');

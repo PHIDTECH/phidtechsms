@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Dashboard') - RodLine SMS</title>
+    <title>@yield('title', 'Admin Dashboard') - Phidtech SMS</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -53,7 +53,7 @@
                     <i class="fas fa-sms text-white text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold text-white">RodLine SMS</h1>
+                    <h1 class="text-xl font-bold text-white">Phidtech SMS</h1>
                     <p class="text-purple-300 text-sm">Admin Panel</p>
                 </div>
             </div>

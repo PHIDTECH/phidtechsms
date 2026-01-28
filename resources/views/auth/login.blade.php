@@ -67,7 +67,7 @@
                         <polyline points="22,6 12,13 2,6"/>
                     </svg>
                 </div>
-                <h2 class="text-3xl font-bold text-white">Welcome Back to RodLine SMS</h2>
+                <h2 class="text-3xl font-bold text-white">Welcome Back to Phidtech SMS</h2>
                 <p class="mt-2 text-white/90">Sign in securely and manage campaigns with Tanzania's most reliable bulk-SMS platform.</p>
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="w-full sm:w-1/2 flex items-center justify-center p-6 sm:p-10">
             <div class="w-full max-w-md bg-white/90 backdrop-blur rounded-2xl border border-gray-200 shadow-xl p-8">
                 <div class="mb-6">
-                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Sign in to RodLine SMS</h1>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Sign in to Phidtech SMS</h1>
                     <p class="text-gray-600 mt-1">Use your email and password</p>
                 </div>
 
@@ -210,7 +210,7 @@
 
             <div class="border-t border-gray-800 mt-8 pt-8 text-center">
                 <p class="text-gray-400">
-© {{ date('Y') }} RodLine SMS. All rights reserved. Made with ❤️ in Tanzania.
+© {{ date('Y') }} Phidtech SMS. All rights reserved. Made with ❤️ in Tanzania.
                 </p>
             </div>
         </div>
