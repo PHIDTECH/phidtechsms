@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\DB;
 
 echo "=== Beem Sender ID Sync Script ===\n\n";
 
-// Find admin user
-$adminUser = User::where('role', 'admin')->orWhere('is_admin', true)->first();
+// Find admin user (Super Admin)
+$adminUser = User::where('role', 'admin')->first();
 if (!$adminUser) {
     $adminUser = User::first();
 }
