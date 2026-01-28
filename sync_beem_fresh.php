@@ -11,9 +11,18 @@ $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 
 use App\Models\SenderID;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 echo "=== Beem Sender ID Sync Script ===\n\n";
+
+// Find admin user
+$adminUser = User::where('role', 'admin')->orWhere('is_admin', true)->first();
+if (!$adminUser) {
+    $adminUser = User::first();
+}
+$adminUserId = $adminUser ? $adminUser->id : null;
+echo "Using admin user ID: " . ($adminUserId ?? 'NULL') . "\n\n";
 
 // Your EXACT sender IDs from Beem dashboard
 $mySenderIds = [
@@ -49,7 +58,7 @@ foreach ($mySenderIds as $item) {
     elseif ($status === 'rejected') $rejectedCount++;
     
     SenderID::create([
-        'user_id' => 1, // Admin user
+        'user_id' => $adminUserId,
         'sender_id' => $item['sender_id'],
         'use_case' => $item['use_case'],
         'sample_messages' => $item['sample'],
