@@ -71,11 +71,19 @@
                         <label for="beem_secret_key" class="block text-sm font-medium text-gray-700 mb-2">
                             Secret Key <span class="text-red-500">*</span>
                         </label>
-                        <input type="password" id="beem_secret_key" name="secret_key" 
-                               value="{{ old('secret_key', $beemSettings['secret_key'] ? str_repeat('*', 20) : '') }}"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                               placeholder="Enter your Beem SMS Secret Key"
-                               {{ $beemSettings['secret_key'] ? 'placeholder=Secret Key is configured (hidden for security)' : 'required' }}>
+                        <div class="relative">
+                            <input type="text" id="beem_secret_key" name="secret_key" 
+                                   value="{{ old('secret_key') }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10"
+                                   placeholder="{{ $beemSettings['secret_key'] ? 'Secret key configured - enter new to change' : 'Enter your Beem SMS Secret Key' }}"
+                                   {{ $beemSettings['secret_key'] ? '' : 'required' }}>
+                            <button type="button" onclick="toggleSecretVisibility('beem_secret_key')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-eye" id="beem_secret_key_icon"></i>
+                            </button>
+                        </div>
+                        @if($beemSettings['secret_key'])
+                            <p class="text-green-600 text-sm mt-1"><i class="fas fa-check-circle"></i> Secret key is configured. Leave empty to keep current.</p>
+                        @endif
                         @error('secret_key')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -304,6 +312,20 @@ function updateBalanceDisplay(data) {
         document.getElementById('last-sync').textContent = lastSync.toLocaleString();
     } else {
         document.getElementById('last-sync').textContent = 'Never';
+    }
+}
+
+function toggleSecretVisibility(inputId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(inputId + '_icon');
+    if (input.type === 'text') {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    } else {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
     }
 }
 

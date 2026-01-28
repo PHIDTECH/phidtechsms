@@ -656,19 +656,19 @@ class AdminController extends Controller
      */
     public function updateBeemSettings(Request $request)
     {
+        // Get current settings first
+        $currentSettings = Setting::getBeemSettings();
+        
         $request->validate([
             'api_key' => 'required|string',
-            'secret_key' => 'required|string',
+            'secret_key' => $currentSettings['secret_key'] ? 'nullable|string' : 'required|string',
             'base_url' => 'nullable|url',
             'default_sender_id' => 'nullable|string|max:11',
         ]);
-
-        // Get current settings
-        $currentSettings = Setting::getBeemSettings();
         
-        // Use existing credentials if asterisks are submitted (masked values)
-        $apiKey = (str_contains($request->api_key, '*')) ? $currentSettings['api_key'] : $request->api_key;
-        $secretKey = (str_contains($request->secret_key, '*')) ? $currentSettings['secret_key'] : $request->secret_key;
+        // Use existing credentials if empty or asterisks are submitted
+        $apiKey = (empty($request->api_key) || str_contains($request->api_key, '*')) ? $currentSettings['api_key'] : $request->api_key;
+        $secretKey = (empty($request->secret_key) || str_contains($request->secret_key, '*')) ? $currentSettings['secret_key'] : $request->secret_key;
 
         Setting::setBeemSettings(
             $apiKey,
