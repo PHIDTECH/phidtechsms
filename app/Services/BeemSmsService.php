@@ -20,28 +20,32 @@ class BeemSmsService
 
     public function __construct($apiKey = null, $secretKey = null)
     {
-        // Prefer explicit args
+        // Always load base URL from settings first
+        $beemSettings = Setting::getBeemSettings();
+        $this->baseUrl = $beemSettings['base_url'] ?? null;
+        
+        // Prefer explicit args for credentials
         if ($apiKey && $secretKey) {
             $this->apiKey = $apiKey;
             $this->secretKey = $secretKey;
         } else {
             // 1) Try database-backed settings
-            $beemSettings = Setting::getBeemSettings();
             $this->apiKey = $beemSettings['api_key'] ?? null;
             $this->secretKey = $beemSettings['secret_key'] ?? null;
-            $this->baseUrl = $beemSettings['base_url'] ?? null;
 
             // 2) Fallback to config/services (env) if DB values are missing
             if (!$this->apiKey || !$this->secretKey) {
                 $this->apiKey = $this->apiKey ?: config('services.beem.api_key');
                 $this->secretKey = $this->secretKey ?: config('services.beem.secret_key');
             }
-            if (!$this->baseUrl) {
-                $this->baseUrl = config('services.beem.base_url');
-            }
+        }
+        
+        // Fallback base URL to config
+        if (!$this->baseUrl) {
+            $this->baseUrl = config('services.beem.base_url');
         }
 
-        // Final default to official base URL (no /public)
+        // Final default to official base URL
         if (!$this->baseUrl) {
             $this->baseUrl = 'https://apisms.beem.africa/v1';
         }

@@ -151,6 +151,12 @@ class Setting extends Model
      */
     public static function setBeemSettings($apiKey, $secretKey, $baseUrl = null, $defaultSenderId = null)
     {
+        // Clear all Beem-related cache first
+        Cache::forget('setting_beem_api_key');
+        Cache::forget('setting_beem_secret_key');
+        Cache::forget('setting_beem_base_url');
+        Cache::forget('setting_beem_default_sender_id');
+        
         self::set('beem_api_key', $apiKey, 'string', 'Beem SMS API Key', true);
         self::set('beem_secret_key', $secretKey, 'string', 'Beem SMS Secret Key', true);
         
