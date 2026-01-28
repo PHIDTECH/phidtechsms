@@ -826,6 +826,79 @@ class AdminController extends Controller
     }
     
     /**
+     * Clear all sender IDs and sync fresh data from Beem API
+     */
+    public function clearAndSyncSenderIds()
+    {
+        try {
+            // Delete all existing sender ID records
+            $deletedCount = SenderID::count();
+            SenderID::truncate();
+            
+            Log::info("Cleared {$deletedCount} sender ID records before fresh sync");
+            
+            $beemService = new BeemSmsService();
+            
+            // Fetch all sender IDs from Beem (API returns status in each item)
+            $result = $beemService->getSenderNames();
+            
+            $syncedCount = 0;
+            
+            if ($result['success'] && isset($result['data'])) {
+                // Process all sender IDs - extract status from each item
+                $items = $result['data'];
+                
+                foreach ($items as $item) {
+                    if (!is_array($item)) continue;
+                    
+                    $senderId = $item['senderid'] ?? $item['sender_id'] ?? $item['sender'] ?? $item['name'] ?? null;
+                    $sampleContent = $item['sample_content'] ?? $item['description'] ?? 'Synced from Beem API';
+                    $useCase = $item['use_case'] ?? 'Synced from Beem reseller account';
+                    $beemId = $item['id'] ?? null;
+                    $itemStatus = $item['status'] ?? 'pending';
+                    
+                    // Map Beem status to local status (active -> approved)
+                    $localStatus = ($itemStatus === 'active') ? 'approved' : $itemStatus;
+                    
+                    if ($senderId) {
+                        SenderID::create([
+                            'user_id' => null,
+                            'sender_id' => $senderId,
+                            'use_case' => $useCase,
+                            'sample_messages' => $sampleContent,
+                            'status' => $localStatus,
+                            'beem_sender_id' => $beemId,
+                            'reviewed_at' => ($localStatus === 'approved') ? now() : null,
+                            'is_default' => false,
+                        ]);
+                        $syncedCount++;
+                    }
+                }
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => "Cleared {$deletedCount} old records. Synchronized {$syncedCount} sender IDs from Beem API",
+                    'deleted_count' => $deletedCount,
+                    'synced_count' => $syncedCount
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Failed to fetch sender IDs: ' . ($result['error'] ?? 'Unknown error'),
+                    'details' => $result['details'] ?? null
+                ]);
+            }
+            
+        } catch (\Exception $e) {
+            Log::error('Clear and sync sender IDs error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to clear and sync sender IDs: ' . $e->getMessage()
+            ]);
+        }
+    }
+    
+    /**
      * Request a new sender ID via Beem API
      */
     public function requestSenderId(Request $request)

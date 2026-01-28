@@ -270,6 +270,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Sender ID Sync
     Route::post('/sync-sender-ids', [AdminController::class, 'syncSenderIds'])->name('sync-sender-ids');
+    Route::post('/clear-and-sync-sender-ids', [AdminController::class, 'clearAndSyncSenderIds'])->name('clear-and-sync-sender-ids');
     Route::post('/request-sender-id', [AdminController::class, 'requestSenderId'])->name('request-sender-id');
     
     // SMS Balance Management
