@@ -1113,32 +1113,66 @@ class BeemSmsService
                 $params['status'] = $status;
             }
 
-            $url = $this->baseUrl . '/sender-names';
-            if (!empty($params)) {
-                $url .= '?' . http_build_query($params);
-            }
+            // Try multiple possible endpoints for sender names
+            $endpoints = [
+                'https://apisms.beem.africa/v1/sender-names',
+                'https://apisms.beem.africa/public/v1/sender-names',
+                rtrim($this->baseUrl, '/') . '/sender-names',
+            ];
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Basic ' . base64_encode($this->apiKey . ':' . $this->secretKey),
-                'Content-Type' => 'application/json',
-            ])->get($url);
+            $lastError = null;
+            $lastStatusCode = null;
 
-            if ($response->successful()) {
-                $responseData = $response->json();
-                Log::info('Beem Sender Names Response:', ['data' => $responseData]);
-                
-                return [
-                    'success' => true,
-                    'data' => $responseData['data'] ?? [],
-                    'pagination' => $responseData['pagination'] ?? null
-                ];
+            foreach ($endpoints as $baseEndpoint) {
+                $url = $baseEndpoint;
+                if (!empty($params)) {
+                    $url .= '?' . http_build_query($params);
+                }
+
+                Log::info('Beem Sender Names: Trying endpoint', ['url' => $url]);
+
+                try {
+                    $response = Http::timeout(30)
+                        ->withHeaders([
+                            'Authorization' => 'Basic ' . base64_encode($this->apiKey . ':' . $this->secretKey),
+                            'Content-Type' => 'application/json',
+                            'Accept' => 'application/json',
+                        ])->get($url);
+
+                    Log::info('Beem Sender Names Response', [
+                        'endpoint' => $baseEndpoint,
+                        'status' => $response->status(),
+                        'body' => $response->body()
+                    ]);
+
+                    if ($response->successful()) {
+                        $responseData = $response->json();
+                        
+                        // Handle different response structures
+                        $data = $responseData['data'] ?? $responseData['sender_names'] ?? $responseData['items'] ?? $responseData;
+                        
+                        return [
+                            'success' => true,
+                            'data' => is_array($data) ? $data : [],
+                            'pagination' => $responseData['pagination'] ?? null,
+                            'endpoint_used' => $baseEndpoint
+                        ];
+                    }
+
+                    $lastError = $response->json()['message'] ?? $response->body();
+                    $lastStatusCode = $response->status();
+
+                } catch (\Exception $e) {
+                    Log::warning('Beem endpoint failed', ['endpoint' => $baseEndpoint, 'error' => $e->getMessage()]);
+                    $lastError = $e->getMessage();
+                }
             }
 
             return [
                 'success' => false,
                 'error' => 'Failed to fetch sender names',
-                'details' => $response->json()['message'] ?? 'Unknown error',
-                'status_code' => $response->status()
+                'details' => $lastError ?? 'All endpoints failed',
+                'status_code' => $lastStatusCode
             ];
 
         } catch (Exception $e) {
