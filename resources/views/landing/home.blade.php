@@ -55,11 +55,6 @@
                         <div><i class="fas fa-tachometer-alt mb-2"></i><div class="text-sm">Real-time</div></div>
                     </div>
                 </div>
-                <div class="md:block hidden">
-                    <div class="floating">
-                        <img src="{{ asset('about.png') }}" alt="RodLine SMS" class="w-full rounded-2xl shadow-lg border border-white/20" />
-                    </div>
-                </div>
             </div>
         </div>
     </section>
