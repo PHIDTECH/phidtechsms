@@ -17,15 +17,9 @@ use Illuminate\Support\Facades\Log;
 
 echo "=== Beem Sender ID Sync Script ===\n\n";
 
-// Get Beem credentials
-$beemSettings = Setting::getBeemSettings();
-$apiKey = $beemSettings['api_key'];
-$secretKey = $beemSettings['secret_key'];
-
-if (!$apiKey || !$secretKey) {
-    echo "ERROR: Beem API credentials not configured!\n";
-    exit(1);
-}
+// Use specific Beem credentials
+$apiKey = '9f8e390920107e24';
+$secretKey = 'ZDQzZDg1ZWNjNDQxODZmMzRkYTVjNzA0OTA4Y2Y2ZDdmMDY2MGFjOWE4MDEzZDY0ZjUxYzY2Zjk2Y2ZmYWUzNg==';
 
 echo "API Key: " . substr($apiKey, 0, 10) . "...\n";
 echo "Credentials loaded successfully.\n\n";

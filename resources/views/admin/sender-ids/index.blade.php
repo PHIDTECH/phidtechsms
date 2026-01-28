@@ -54,14 +54,8 @@
                 Beem Africa Sender IDs
             </h2>
             <div class="flex gap-3">
-                <button onclick="clearAndSyncBeemSenderIds()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors flex items-center" id="clear-sync-beem-btn">
-                    <i class="fas fa-trash-alt mr-2"></i> Clear & Sync Fresh
-                </button>
                 <button onclick="syncBeemSenderIds()" class="bg-[#6144f2] hover:bg-[#5a3de8] text-white px-4 py-2 rounded-lg text-sm transition-colors flex items-center" id="sync-beem-btn">
                     <i class="fas fa-sync-alt mr-2"></i> Sync from Beem
-                </button>
-                <button onclick="showRequestSenderForm()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors flex items-center">
-                    <i class="fas fa-plus mr-2"></i> Request New
                 </button>
             </div>
         </div>
