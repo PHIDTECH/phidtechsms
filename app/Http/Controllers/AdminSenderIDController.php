@@ -53,87 +53,37 @@ class AdminSenderIDController extends Controller
             'rejected' => SenderID::where('status', 'rejected')->count(),
         ];
         
-        // Fetch sender names from Beem API
-        $beemService = new BeemSmsService();
+        // Get sender IDs from DATABASE (not live API)
+        $approvedSenders = SenderID::where('status', 'approved')->get();
+        $pendingSenders = SenderID::where('status', 'pending')->get();
         
-        $normalizeSenderItems = function ($result) {
-            if (!($result['success'] ?? false)) {
-                return [[], $result['error'] ?? ''];
-            }
-            $data = $result['data'] ?? [];
-            
-            $normalized = [];
-            foreach ($data as $item) {
-                if (!is_array($item)) continue;
-                $name = $item['senderid'] ?? $item['sender_id'] ?? $item['sender'] ?? $item['name'] ?? null;
-                $status = $item['status'] ?? null;
-                $created = $item['created'] ?? null;
-                $normalized[] = [
-                    'name' => $name,
-                    'status' => $status,
-                    'raw' => $item,
-                    'created_at' => $created,
-                ];
-            }
-            return [$normalized, null];
-        };
+        // Format for view
+        $beemSenderApproved = $approvedSenders->map(function($sender) {
+            return [
+                'name' => $sender->sender_id,
+                'status' => $sender->status,
+                'raw' => [
+                    'sample_content' => $sender->sample_messages,
+                    'use_case' => $sender->use_case,
+                ],
+                'created_at' => $sender->created_at,
+            ];
+        })->toArray();
         
-        // Get all sender names first
-         $allResult = $beemService->getSenderNames();
-         [$allSenders, $allError] = $normalizeSenderItems($allResult);
-         
-         // Calculate real statistics from Beem data
-         $beemStats = [
-             'total' => count($allSenders),
-             'active' => 0,
-             'pending' => 0,
-             'approved' => 0,
-             'rejected' => 0
-         ];
-         
-         foreach ($allSenders as $sender) {
-             $status = strtolower($sender['status'] ?? 'unknown');
-             
-             switch ($status) {
-                 case 'active':
-                     $beemStats['active']++;
-                     $beemStats['approved']++; // Active is considered approved
-                     break;
-                 case 'pending':
-                     $beemStats['pending']++;
-                     break;
-                 case 'approved':
-                     $beemStats['approved']++;
-                     break;
-                 case 'rejected':
-                     $beemStats['rejected']++;
-                     break;
-                 case 'inprogress':
-                 case 'in progress':
-                     $beemStats['pending']++; // In progress is considered pending
-                     break;
-             }
-         }
-         
-         // Update local stats with Beem data
-         $stats['total'] = $beemStats['total'];
-         $stats['pending'] = $beemStats['pending'];
-         $stats['approved'] = $beemStats['approved'];
-         $stats['rejected'] = $beemStats['rejected'];
-         
-         // Filter by status and reindex arrays
-         $beemSenderApproved = array_values(array_filter($allSenders, function($sender) {
-             $status = strtolower($sender['status'] ?? '');
-             return $status === 'approved' || $status === 'active';
-         }));
-         
-         $beemSenderPending = array_values(array_filter($allSenders, function($sender) {
-             $status = strtolower($sender['status'] ?? '');
-             return $status === 'pending' || $status === 'inprogress' || $status === 'in progress';
-         }));
-         
-         $approvedError = $allError;
-         $pendingError = $allError;
+        $beemSenderPending = $pendingSenders->map(function($sender) {
+            return [
+                'name' => $sender->sender_id,
+                'status' => $sender->status,
+                'raw' => [
+                    'sample_content' => $sender->sample_messages,
+                    'use_case' => $sender->use_case,
+                ],
+                'created_at' => $sender->created_at,
+            ];
+        })->toArray();
+        
+        $approvedError = null;
+        $pendingError = null;
 
         return view('admin.sender-ids.index', compact(
             'senderIds', 
