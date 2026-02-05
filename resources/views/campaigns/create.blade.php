@@ -373,75 +373,73 @@
                 
                 <!-- Cost Calculator Sidebar -->
                 <div class="lg:col-span-1">
-                    <div class="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-xl shadow p-4">
+                    <div class="bg-white rounded-xl shadow border border-gray-200 p-4">
                         <div class="flex items-center space-x-3 mb-5">
-                            <div class="p-2 bg-white/20 rounded-lg">
-                                <i class="fas fa-calculator text-white"></i>
+                            <div class="p-2 bg-purple-100 rounded-lg">
+                                <i class="fas fa-calculator text-purple-600"></i>
                             </div>
-                            <h4 class="text-lg font-bold">Cost Calculator</h4>
+                            <h4 class="text-lg font-bold text-gray-900">Cost Calculator</h4>
                         </div>
                         
-                        <div class="space-y-1 mb-4">
+                        <div class="space-y-2 mb-4">
                             <div class="flex justify-between items-center">
-                                <span class="text-blue-100">Recipients:</span>
-                                <span id="recipient-count" class="font-semibold">0</span>
+                                <span class="text-gray-600">Recipients:</span>
+                                <span id="recipient-count" class="font-semibold text-blue-600">0</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-blue-100">SMS Parts per Message:</span>
-                                <span id="sms-parts-display" class="font-semibold">1</span>
+                                <span class="text-gray-600">SMS Parts per Message:</span>
+                                <span id="sms-parts-display" class="font-semibold text-blue-600">1</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-blue-100">Total SMS Parts:</span>
-                                <span id="total-sms-parts" class="font-semibold">0</span>
+                                <span class="text-gray-600">Total SMS Parts:</span>
+                                <span id="total-sms-parts" class="font-semibold text-blue-600">0</span>
                             </div>
-                            
                         </div>
                         
-                        <div class="border-t border-white/30 pt-2 mb-4">
+                        <div class="border-t border-gray-200 pt-3 mb-4">
                             <div class="flex justify-between items-center text-lg font-bold">
-                                <span>Total SMS Needed:</span>
-                                <span id="total-cost">0 SMS</span>
+                                <span class="text-gray-900">Total SMS Needed:</span>
+                                <span id="total-cost" class="text-purple-600">0 SMS</span>
                             </div>
                         </div>
                         
-                        <div class="space-y-1 mb-4">
+                        <div class="space-y-2 mb-4">
                             <div class="flex justify-between items-center text-sm">
-                                <span class="text-blue-100">Current SMS Credits:</span>
-                                <span class="font-semibold">{{ number_format(auth()->user()->sms_credits, 0) }} SMS</span>
+                                <span class="text-gray-600">Current SMS Credits:</span>
+                                <span class="font-semibold text-gray-900">{{ number_format(auth()->user()->sms_credits, 0) }} SMS</span>
                             </div>
                             <div class="flex justify-between items-center text-sm">
-                                <span class="text-blue-100">Credits After:</span>
-                                <span id="balance-after" class="font-semibold">{{ number_format(auth()->user()->sms_credits, 0) }} SMS</span>
+                                <span class="text-gray-600">Credits After:</span>
+                                <span id="balance-after" class="font-semibold text-gray-900">{{ number_format(auth()->user()->sms_credits, 0) }} SMS</span>
                             </div>
                         </div>
                         
-                        <div id="balance-warning" class="bg-amber-100 border border-amber-300 text-amber-800 p-2 rounded-lg mb-2" style="display: none;">
+                        <div id="balance-warning" class="bg-amber-50 border border-amber-300 text-amber-800 p-3 rounded-lg mb-3" style="display: none;">
                             <div class="flex items-center space-x-2">
                                 <i class="fas fa-exclamation-triangle text-amber-600"></i> 
                                 <span class="text-sm">Your balance is getting low. Consider topping up.</span>
                             </div>
                         </div>
                         
-                        <div id="balance-error" class="bg-red-100 border border-red-300 text-red-800 p-2 rounded-lg mb-2" style="display: none;">
+                        <div id="balance-error" class="bg-red-50 border border-red-300 text-red-800 p-3 rounded-lg mb-3" style="display: none;">
                             <div class="flex items-center space-x-2">
                                 <i class="fas fa-times-circle text-red-600"></i> 
                                 <span class="text-sm">Insufficient balance. Please top up your wallet.</span>
                             </div>
                         </div>
                         
-                        <div class="space-y-2 mt-3">
-                             <button type="submit" name="submit_action" value="create" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center space-x-2" id="create-campaign-btn">
-                                 <i class="fas fa-save text-lg"></i>
-                                 <span>Save as Draft</span>
-                             </button>
-                             <button type="submit" name="submit_action" value="send" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-2 px-4 rounded-lg shadow hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center space-x-2" id="send-campaign-btn">
-                                 <i class="fas fa-paper-plane text-lg"></i>
-                                 <span>Send Campaign</span>
-                             </button>
-                         </div>
-                         
-                     </div>
-                 </div>
+                        <div class="space-y-3 mt-4">
+                            <button type="submit" name="submit_action" value="create" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg border border-gray-300 transition-all duration-200 flex items-center justify-center space-x-2" id="create-campaign-btn">
+                                <i class="fas fa-save"></i>
+                                <span>Save as Draft</span>
+                            </button>
+                            <button type="submit" name="submit_action" value="send" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-lg shadow transition-all duration-200 flex items-center justify-center space-x-2" id="send-campaign-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Send Campaign</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
              </div>
          </div>
      </form>
