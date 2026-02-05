@@ -249,9 +249,9 @@
                                     </div>
                                     <div class="phone-input mt-3 pl-8">
                                         <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none" name="recipient_phones" id="recipient_phones" rows="4" 
-                                                  placeholder="+255712345678&#10;+255787654321&#10;+255698765432">{{ old('recipient_phones') }}</textarea>
+                                                  placeholder="255712345678&#10;255787654321&#10;255698765432">{{ old('recipient_phones') }}</textarea>
                                         <div class="mt-2 text-sm text-gray-600">
-                                            Enter phone numbers in E.164 format (e.g., +255712345678), one per line.
+                                            Enter phone numbers starting with 255 (e.g., 255712345678), one per line.
                                             <span id="phone-count" class="font-semibold text-blue-600">0</span> valid numbers detected.
                                         </div>
                                     </div>
