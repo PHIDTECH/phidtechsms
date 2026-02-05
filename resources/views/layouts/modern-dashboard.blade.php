@@ -134,9 +134,9 @@
                         <li>
                             <a href="{{ route('campaigns.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl {{ request()->routeIs('campaigns.*') ? 'bg-white/10 text-white shadow-lg backdrop-blur-sm border border-white/20' : 'hover:bg-white/10 text-primary-200 hover:text-white' }} transition-all duration-200">
                                 <div class="w-8 h-8 {{ request()->routeIs('campaigns.*') ? 'bg-white/20' : 'bg-white/10' }} rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                                    <i class="fas fa-bullhorn text-sm"></i>
+                                    <i class="fas fa-paper-plane text-sm"></i>
                                 </div>
-                                <span class="font-medium">Campaigns</span>
+                                <span class="font-medium">Send SMS</span>
                                 @if(request()->routeIs('campaigns.*'))
                                     <div class="ml-auto w-2 h-2 bg-primary-300 rounded-full"></div>
                                 @endif

@@ -381,7 +381,7 @@
                             </button>
                             <button type="submit" name="submit_action" value="send" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-lg shadow transition-all duration-200 flex items-center justify-center space-x-2" id="send-campaign-btn">
                                 <i class="fas fa-paper-plane"></i>
-                                <span>Send Campaign</span>
+                                <span>Send SMS</span>
                             </button>
                         </div>
                         
