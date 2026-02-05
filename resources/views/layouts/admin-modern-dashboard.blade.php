@@ -89,6 +89,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.sms.index') }}" class="nav-link flex items-center space-x-3 p-3 rounded-lg hover:bg-[#5a3ad1] transition-colors" data-section="send-message">
+                        <i class="fas fa-paper-plane w-5"></i>
+                        <span>Send Message</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('admin.campaigns.index') }}" class="nav-link flex items-center space-x-3 p-3 rounded-lg hover:bg-[#5a3ad1] transition-colors" data-section="campaigns">
                         <i class="fas fa-bullhorn w-5"></i>
                         <span>Campaigns</span>
@@ -210,6 +216,7 @@
                     const sectionNames = {
                         'dashboard': 'Admin Dashboard',
                         'users': 'User Management',
+                        'send-message': 'Send Message',
                         'campaigns': 'Campaign Management',
                         'payments': 'Payment Management',
                         'sender-ids': 'Sender ID Management',

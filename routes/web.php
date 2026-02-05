@@ -19,6 +19,7 @@ use App\Http\Controllers\ContactImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Api\SmsApiController;
+use App\Http\Controllers\AdminSmsController;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Mail;
 
@@ -260,21 +261,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::delete('/{campaign}', [AdminCampaignController::class, 'destroy'])->name('destroy');
     });
     
-    // API Settings Management
-    Route::prefix('settings')->name('settings.')->group(function () {
-        Route::get('/', [AdminController::class, 'settings'])->name('index');
-        Route::get('/api', [AdminController::class, 'apiSettings'])->name('api');
-        Route::post('/beem', [AdminController::class, 'updateBeemSettings'])->name('beem.update');
-        Route::post('/selcom', [AdminController::class, 'updateSelcomSettings'])->name('selcom.update');
-    });
-    
-    // Sender ID Sync
-    Route::post('/sync-sender-ids', [AdminController::class, 'syncSenderIds'])->name('sync-sender-ids');
-    Route::post('/clear-and-sync-sender-ids', [AdminController::class, 'clearAndSyncSenderIds'])->name('clear-and-sync-sender-ids');
-    Route::post('/request-sender-id', [AdminController::class, 'requestSenderId'])->name('request-sender-id');
-    
-    // SMS Balance Management
+    // Admin Send Message & SMS Management
     Route::prefix('sms')->name('sms.')->group(function () {
+        // Send Message routes
+        Route::get('/', [AdminSmsController::class, 'index'])->name('index');
+        Route::get('/compose', [AdminSmsController::class, 'compose'])->name('compose');
+        Route::post('/send', [AdminSmsController::class, 'send'])->name('send');
+        Route::get('/history', [AdminSmsController::class, 'history'])->name('history');
+        Route::get('/users', [AdminSmsController::class, 'getUsers'])->name('users');
+        
+        // SMS Balance Management
         Route::post('/sync-balance', [AdminController::class, 'syncSmsBalance'])->name('sync-balance');
         Route::post('/update-balance', [AdminController::class, 'updateSmsBalance'])->name('update-balance');
         Route::get('/transactions', [AdminController::class, 'smsTransactions'])->name('transactions');
@@ -287,6 +283,19 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::post('/configure-beem-dashboard', [AdminController::class, 'configureBeemDashboard'])->name('configure-beem-dashboard');
         Route::get('/beem-dashboard-status', [AdminController::class, 'getBeemDashboardStatus'])->name('beem-dashboard-status');
     });
+    
+    // API Settings Management
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/', [AdminController::class, 'settings'])->name('index');
+        Route::get('/api', [AdminController::class, 'apiSettings'])->name('api');
+        Route::post('/beem', [AdminController::class, 'updateBeemSettings'])->name('beem.update');
+        Route::post('/selcom', [AdminController::class, 'updateSelcomSettings'])->name('selcom.update');
+    });
+    
+    // Sender ID Sync
+    Route::post('/sync-sender-ids', [AdminController::class, 'syncSenderIds'])->name('sync-sender-ids');
+    Route::post('/clear-and-sync-sender-ids', [AdminController::class, 'clearAndSyncSenderIds'])->name('clear-and-sync-sender-ids');
+    Route::post('/request-sender-id', [AdminController::class, 'requestSenderId'])->name('request-sender-id');
     
     // Admin Reports
     Route::prefix('reports')->name('reports.')->group(function () {
