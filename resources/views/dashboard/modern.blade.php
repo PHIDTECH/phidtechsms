@@ -267,8 +267,6 @@
             
             <!-- Content -->
             <main class="flex-1 overflow-y-auto bg-gradient-to-br from-gray-50 to-gray-100 p-8">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 space-y-6">
                 <!-- Stats Overview -->
                 <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 animate-fade-in">
                     <!-- Messages Sent -->
@@ -328,244 +326,68 @@
                     </div>
                 </div>
 
-                <!-- SMS Campaigns Table -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden animate-slide-up">
-                    <div class="px-8 py-6 border-b border-gray-100">
-                        <div class="flex items-center justify-between">
+                <!-- Quick Actions -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <a href="{{ route('campaigns.create') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200 group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-paper-plane text-white"></i>
+                            </div>
                             <div>
-                                <h2 class="text-xl font-bold text-gray-900">Recent Campaigns</h2>
-                                <p class="text-sm text-gray-500 mt-1">Monitor your SMS campaign performance</p>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-3 h-3 bg-green-400 rounded-full"></div>
-                                    <span class="text-sm text-gray-600">Active</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
-                                    <span class="text-sm text-gray-600">Completed</span>
-                                </div>
-                                <button class="text-primary-600 hover:text-primary-700 text-sm font-medium">View All</button>
+                                <h3 class="font-semibold text-gray-900">Send SMS</h3>
+                                <p class="text-sm text-gray-500">Create new campaign</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-8 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Campaign</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Recipients</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Sent</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Delivery Rate</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
-                                    <th class="px-8 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-100">
-                                @forelse($recentCampaigns ?? [] as $campaign)
-                                <tr class="hover:bg-gray-50 transition-colors duration-200 campaign-row" data-status="{{ $campaign->status ?? 'active' }}" data-created="{{ optional($campaign->created_at)->timestamp ?? time() }}" data-sent="{{ $campaign->sent_count ?? 0 }}" data-total="{{ $campaign->total_recipients ?? 0 }}" data-rate="{{ $campaign->delivery_rate ?? 0 }}">
-                                    <td class="px-8 py-6">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-sm">
-                                                <i class="fas fa-bullhorn text-white text-sm"></i>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold text-gray-900">{{ $campaign->name ?? 'Summer Sale Campaign' }}</p>
-                                                <p class="text-sm text-gray-500">{{ Str::limit($campaign->message ?? 'Get 50% off on all products this summer!', 40) }}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        @if(($campaign->status ?? 'active') === 'active')
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                                                Active
-                                            </span>
-                                        @else
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                                <div class="w-2 h-2 bg-gray-400 rounded-full mr-2"></div>
-                                                Completed
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <div class="text-sm">
-                                            <p class="font-semibold text-gray-900">{{ number_format($campaign->total_recipients ?? 2500) }}</p>
-                                            <p class="text-gray-500">contacts</p>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <div class="text-sm">
-                                            <p class="font-semibold text-gray-900">{{ number_format($campaign->sent_count ?? 2450) }}</p>
-                                            <p class="text-gray-500">messages</p>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="flex-1 bg-gray-200 rounded-full h-2 max-w-[60px]">
-                                                <div class="bg-gradient-to-r from-green-400 to-green-500 h-2 rounded-full" style="width: {{ $campaign->delivery_rate ?? 98 }}%"></div>
-                                            </div>
-                                            <span class="text-sm font-semibold text-gray-900">{{ number_format(($campaign->delivery_rate ?? 98), 1) }}%</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <div class="text-sm">
-                                            <p class="text-gray-900">{{ $campaign->created_at ? $campaign->created_at->format('M d, Y') : 'Dec 15, 2023' }}</p>
-                                            <p class="text-gray-500">{{ $campaign->created_at ? $campaign->created_at->format('h:i A') : '2:30 PM' }}</p>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-6 text-right">
-                                        <div class="flex items-center justify-end space-x-2">
-                                            <button class="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors">
-                                                <i class="fas fa-eye text-sm"></i>
-                                            </button>
-                                            <button class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                                                <i class="fas fa-edit text-sm"></i>
-                                            </button>
-                                            <button class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                                                <i class="fas fa-trash text-sm"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @empty
-                                <!-- Sample Data -->
-                                <tr class="hover:bg-gray-50 transition-colors duration-200 campaign-row" data-status="active" data-created="{{ time() }}" data-sent="2450" data-total="2500" data-rate="98">
-                                    <td class="px-8 py-6">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-sm">
-                                                <i class="fas fa-bullhorn text-white text-sm"></i>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold text-gray-900">Summer Sale Campaign</p>
-                                                <p class="text-sm text-gray-500">Get 50% off on all products this summer!</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                            <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <div class="text-sm">
-                                            <p class="font-semibold text-gray-900">2,500</p>
-                                            <p class="text-gray-500">contacts</p>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <div class="text-sm">
-                                            <p class="font-semibold text-gray-900">2,450</p>
-                                            <p class="text-gray-500">messages</p>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="flex-1 bg-gray-200 rounded-full h-2 max-w-[60px]">
-                                                <div class="bg-gradient-to-r from-green-400 to-green-500 h-2 rounded-full" style="width: 98%"></div>
-                                            </div>
-                                            <span class="text-sm font-semibold text-gray-900">98%</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-6">
-                                        <div class="text-sm">
-                                            <p class="text-gray-900">Dec 15, 2023</p>
-                                            <p class="text-gray-500">2:30 PM</p>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-6 text-right">
-                                        <div class="flex items-center justify-end space-x-2">
-                                            <button class="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors">
-                                                <i class="fas fa-eye text-sm"></i>
-                                            </button>
-                                            <button class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                                                <i class="fas fa-edit text-sm"></i>
-                                            </button>
-                                            <button class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                                                <i class="fas fa-trash text-sm"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                    </a>
+                    <a href="{{ route('campaigns.index') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-blue-200 group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-bullhorn text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">View Campaigns</h3>
+                                <p class="text-sm text-gray-500">Manage all campaigns</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ route('wallet.index') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-green-200 group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-wallet text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Buy SMS</h3>
+                                <p class="text-sm text-gray-500">Top up your credits</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
+
+                <!-- Sender IDs Section -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Your Sender IDs</h3>
+                        <a href="{{ route('sender-ids.create') }}" class="text-sm text-primary-600 hover:text-primary-700 font-medium">+ Apply New</a>
                     </div>
-                    <aside class="lg:col-span-1">
-                        <div class="sticky top-6 space-y-6">
-                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                                <p class="text-sm font-semibold text-gray-700 mb-4">Filters</p>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-xs font-medium text-gray-500 mb-1">Time Range</label>
-                                        <select id="filter-range" class="w-full border-gray-200 rounded-lg text-sm">
-                                            <option value="all">All time</option>
-                                            <option value="7">Last 7 days</option>
-                                            <option value="30">Last 30 days</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-medium text-gray-500 mb-1">Status</label>
-                                        <select id="filter-status" class="w-full border-gray-200 rounded-lg text-sm">
-                                            <option value="all">All</option>
-                                            <option value="active">Active</option>
-                                            <option value="completed">Completed</option>
-                                        </select>
-                                    </div>
-                                </div>
+                    <div class="space-y-3">
+                        @forelse(($userSenderIds ?? []) as $sid)
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <span class="font-medium text-gray-800">{{ $sid->sender_name }}</span>
+                                <span class="text-xs px-3 py-1 rounded-full font-medium
+                                    @if($sid->status==='approved') bg-emerald-100 text-emerald-700 @elseif($sid->status==='pending') bg-amber-100 text-amber-700 @else bg-red-100 text-red-700 @endif">
+                                    {{ ucfirst($sid->status) }}
+                                </span>
                             </div>
-                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                                <p class="text-sm font-semibold text-gray-700 mb-4">Summary</p>
-                                <div class="space-y-3">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-500">Filtered Sent</span>
-                                        <span id="summarySent" class="text-base font-semibold text-gray-900">0</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-500">Delivery Rate</span>
-                                        <span id="summaryRate" class="text-base font-semibold text-gray-900">0%</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-500">Campaigns</span>
-                                        <span id="summaryCount" class="text-base font-semibold text-gray-900">0</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-500">SMS Credits</span>
-                                        <span class="text-base font-semibold text-gray-900">{{ number_format($smsCredits ?? 0) }}</span>
-                                    </div>
-                                </div>
-                                <a href="{{ route('campaigns.create') }}" class="mt-4 inline-flex items-center justify-center w-full bg-primary-600 hover:bg-primary-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-sm transition-all">
-                                    <i class="fas fa-paper-plane mr-2 text-sm"></i>
-                                    Send SMS
-                                </a>
+                        @empty
+                            <div class="text-center py-6">
+                                <i class="fas fa-id-card text-gray-300 text-3xl mb-2"></i>
+                                <p class="text-sm text-gray-500">No sender IDs yet. Apply for one to start sending SMS.</p>
                             </div>
-                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                                <div class="flex items-center justify-between mb-3">
-                                    <p class="text-sm font-semibold text-gray-700">Your Sender IDs</p>
-                                    <a href="{{ route('sender-ids.create') }}" class="text-xs text-primary-600 hover:text-primary-700 font-semibold">Apply</a>
-                                </div>
-                                <div class="space-y-2">
-                                    @forelse(($userSenderIds ?? []) as $sid)
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-sm text-gray-800">{{ $sid->sender_name }}</span>
-                                            <span class="text-xs px-2 py-1 rounded-lg 
-                                                @if($sid->status==='approved') bg-emerald-50 text-emerald-700 border border-emerald-200 @elseif($sid->status==='pending') bg-amber-50 text-amber-700 border border-amber-200 @else bg-red-50 text-red-700 border border-red-200 @endif">
-                                                {{ ucfirst($sid->status) }}
-                                            </span>
-                                        </div>
-                                    @empty
-                                        <p class="text-xs text-gray-500">No applications yet.</p>
-                                    @endforelse
-                                </div>
-                                <a href="{{ route('sender-ids.index') }}" class="mt-3 inline-flex items-center justify-center w-full border border-gray-200 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-xl font-medium transition-all">View All</a>
-                            </div>
-                        </div>
-                    </aside>
+                        @endforelse
+                    </div>
+                    <a href="{{ route('sender-ids.index') }}" class="mt-4 inline-flex items-center justify-center w-full border border-gray-200 hover:bg-gray-50 text-gray-700 px-4 py-2.5 rounded-xl font-medium transition-all">
+                        View All Sender IDs
+                    </a>
                 </div>
             </main>
         </div>
@@ -599,51 +421,6 @@
             }
             document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeMobileMenu(); } });
             window.addEventListener('resize', function(){ if(window.innerWidth>=1024){ closeMobileMenu(); } });
-
-            const rows = Array.from(document.querySelectorAll('.campaign-row'));
-            const rangeSelect = document.getElementById('filter-range');
-            const statusSelect = document.getElementById('filter-status');
-            const summarySent = document.getElementById('summarySent');
-            const summaryRate = document.getElementById('summaryRate');
-            const summaryCount = document.getElementById('summaryCount');
-
-            function withinRange(ts, days){
-                if(days==='all') return true;
-                const now = Date.now();
-                const ms = Number(days) * 24 * 60 * 60 * 1000;
-                return (now - ts*1000) <= ms;
-            }
-
-            function applyFilters(){
-                const range = rangeSelect ? rangeSelect.value : 'all';
-                const status = statusSelect ? statusSelect.value : 'all';
-                let totalSent = 0;
-                let totalDeliveredWeighted = 0;
-                let count = 0;
-                rows.forEach(r => {
-                    const rStatus = r.getAttribute('data-status') || 'active';
-                    const created = Number(r.getAttribute('data-created') || (Date.now()/1000));
-                    const sent = Number(r.getAttribute('data-sent') || 0);
-                    const rate = Number(r.getAttribute('data-rate') || 0);
-                    const matchStatus = status==='all' || rStatus===status;
-                    const matchRange = withinRange(created, range);
-                    const visible = matchStatus && matchRange;
-                    r.style.display = visible ? '' : 'none';
-                    if(visible){
-                        count++;
-                        totalSent += sent;
-                        totalDeliveredWeighted += (rate/100) * sent;
-                    }
-                });
-                summaryCount.textContent = String(count);
-                summarySent.textContent = totalSent.toLocaleString();
-                const ratePct = totalSent>0 ? Math.round((totalDeliveredWeighted/totalSent)*1000)/10 : 0;
-                summaryRate.textContent = ratePct.toFixed(1) + '%';
-            }
-
-            if(rangeSelect) rangeSelect.addEventListener('change', applyFilters);
-            if(statusSelect) statusSelect.addEventListener('change', applyFilters);
-            applyFilters();
         });
     </script>
 </body>
