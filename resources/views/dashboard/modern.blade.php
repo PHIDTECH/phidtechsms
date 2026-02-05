@@ -102,9 +102,9 @@
                         <li>
                             <a href="{{ route('campaigns.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200">
                                 <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-bullhorn text-sm"></i>
+                                    <i class="fas fa-paper-plane text-sm"></i>
                                 </div>
-                                <span class="font-medium">Campaigns</span>
+                                <span class="font-medium">Send SMS</span>
                             </a>
                         </li>
                         <li>

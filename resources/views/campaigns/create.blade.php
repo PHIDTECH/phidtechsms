@@ -371,64 +371,10 @@
                     </div>
                 </div>
                 
-                <!-- Cost Calculator Sidebar -->
+                <!-- Action Buttons Sidebar -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-xl shadow border border-gray-200 p-4">
-                        <div class="flex items-center space-x-3 mb-5">
-                            <div class="p-2 bg-purple-100 rounded-lg">
-                                <i class="fas fa-calculator text-purple-600"></i>
-                            </div>
-                            <h4 class="text-lg font-bold text-gray-900">Cost Calculator</h4>
-                        </div>
-                        
-                        <div class="space-y-2 mb-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Recipients:</span>
-                                <span id="recipient-count" class="font-semibold text-blue-600">0</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">SMS Parts per Message:</span>
-                                <span id="sms-parts-display" class="font-semibold text-blue-600">1</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Total SMS Parts:</span>
-                                <span id="total-sms-parts" class="font-semibold text-blue-600">0</span>
-                            </div>
-                        </div>
-                        
-                        <div class="border-t border-gray-200 pt-3 mb-4">
-                            <div class="flex justify-between items-center text-lg font-bold">
-                                <span class="text-gray-900">Total SMS Needed:</span>
-                                <span id="total-cost" class="text-purple-600">0 SMS</span>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-2 mb-4">
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-600">Current SMS Credits:</span>
-                                <span class="font-semibold text-gray-900">{{ number_format(auth()->user()->sms_credits, 0) }} SMS</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-600">Credits After:</span>
-                                <span id="balance-after" class="font-semibold text-gray-900">{{ number_format(auth()->user()->sms_credits, 0) }} SMS</span>
-                            </div>
-                        </div>
-                        
-                        <div id="balance-warning" class="bg-amber-50 border border-amber-300 text-amber-800 p-3 rounded-lg mb-3" style="display: none;">
-                            <div class="flex items-center space-x-2">
-                                <i class="fas fa-exclamation-triangle text-amber-600"></i> 
-                                <span class="text-sm">Your balance is getting low. Consider topping up.</span>
-                            </div>
-                        </div>
-                        
-                        <div id="balance-error" class="bg-red-50 border border-red-300 text-red-800 p-3 rounded-lg mb-3" style="display: none;">
-                            <div class="flex items-center space-x-2">
-                                <i class="fas fa-times-circle text-red-600"></i> 
-                                <span class="text-sm">Insufficient balance. Please top up your wallet.</span>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-3 mt-4">
+                    <div class="bg-white rounded-xl shadow border border-gray-200 p-4 sticky top-4">
+                        <div class="space-y-3">
                             <button type="submit" name="submit_action" value="create" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg border border-gray-300 transition-all duration-200 flex items-center justify-center space-x-2" id="create-campaign-btn">
                                 <i class="fas fa-save"></i>
                                 <span>Save as Draft</span>
@@ -437,6 +383,13 @@
                                 <i class="fas fa-paper-plane"></i>
                                 <span>Send Campaign</span>
                             </button>
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-700">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                SMS Credits: <strong>{{ number_format(auth()->user()->sms_credits, 0) }}</strong>
+                            </p>
                         </div>
                     </div>
                 </div>
