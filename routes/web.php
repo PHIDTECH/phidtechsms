@@ -298,6 +298,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/request-sender-id', [AdminController::class, 'requestSenderId'])->name('request-sender-id');
     Route::get('/seed-phidtech-sender', [AdminController::class, 'seedPhidtechSender'])->name('seed-phidtech-sender');
     Route::get('/cleanup-sender-ids', [AdminController::class, 'cleanupSenderIds'])->name('cleanup-sender-ids');
+    Route::get('/delete-sender-ids/{name?}', [AdminController::class, 'deleteSenderIdsByName'])->name('delete-sender-ids');
     
     // Admin Reports
     Route::prefix('reports')->name('reports.')->group(function () {

@@ -1246,25 +1246,41 @@ class AdminController extends Controller
     public function cleanupSenderIds()
     {
         try {
-            // Delete all sender IDs except NYABIYONZA and PHIDTECH
-            $deleted = SenderID::whereNotIn('sender_name', ['NYABIYONZA', 'PHIDTECH'])->delete();
-            
-            // Also delete any duplicates of NYABIYONZA (keep only the first one)
-            $nyabiyonza = SenderID::where('sender_name', 'NYABIYONZA')->orderBy('id', 'asc')->first();
-            if ($nyabiyonza) {
-                SenderID::where('sender_name', 'NYABIYONZA')->where('id', '!=', $nyabiyonza->id)->delete();
-            }
-            
-            // Same for PHIDTECH
-            $phidtech = SenderID::where('sender_name', 'PHIDTECH')->orderBy('id', 'asc')->first();
-            if ($phidtech) {
-                SenderID::where('sender_name', 'PHIDTECH')->where('id', '!=', $phidtech->id)->delete();
-            }
+            // Delete all sender IDs that were synced (have sender_id column filled, not sender_name based apps)
+            // Keep only user-submitted applications
+            $deleted = SenderID::where(function($q) {
+                $q->where('sender_id', 'like', '%')
+                  ->whereNotNull('sender_id')
+                  ->where('sender_id', '!=', '');
+            })->delete();
 
-            return redirect()->route('admin.sender-ids.index')->with('success', "Cleanup complete! Deleted {$deleted} sender ID applications. Kept NYABIYONZA and PHIDTECH only.");
+            return redirect()->route('admin.sender-ids.index')->with('success', "Cleanup complete! Deleted {$deleted} synced sender ID records.");
         } catch (\Exception $e) {
             Log::error('Failed to cleanup sender IDs: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Failed to cleanup sender IDs: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Delete all sender IDs with a specific name pattern
+     */
+    public function deleteSenderIdsByName($name = null)
+    {
+        try {
+            // Delete all sender IDs matching the pattern or all synced duplicates
+            if ($name) {
+                $deleted = SenderID::where('sender_name', 'like', "%{$name}%")
+                    ->orWhere('sender_id', 'like', "%{$name}%")
+                    ->delete();
+            } else {
+                // Delete all entries from Super Admin (user_id = 1) except keep one PHIDTECH
+                $deleted = SenderID::where('user_id', 1)->delete();
+            }
+
+            return redirect()->route('admin.sender-ids.index')->with('success', "Deleted {$deleted} sender ID applications.");
+        } catch (\Exception $e) {
+            Log::error('Failed to delete sender IDs: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete sender IDs: ' . $e->getMessage());
         }
     }
 }
