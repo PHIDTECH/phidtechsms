@@ -53,37 +53,70 @@ class AdminSenderIDController extends Controller
             'rejected' => SenderID::where('status', 'rejected')->count(),
         ];
         
-        // Get sender IDs from DATABASE (not live API)
-        $approvedSenders = SenderID::where('status', 'approved')->get();
-        $pendingSenders = SenderID::where('status', 'pending')->get();
-        
-        // Format for view
-        $beemSenderApproved = $approvedSenders->map(function($sender) {
-            return [
-                'name' => $sender->sender_id,
-                'status' => $sender->status,
-                'raw' => [
-                    'sample_content' => $sender->sample_messages,
-                    'use_case' => $sender->use_case,
-                ],
-                'created_at' => $sender->created_at,
-            ];
-        })->toArray();
-        
-        $beemSenderPending = $pendingSenders->map(function($sender) {
-            return [
-                'name' => $sender->sender_id,
-                'status' => $sender->status,
-                'raw' => [
-                    'sample_content' => $sender->sample_messages,
-                    'use_case' => $sender->use_case,
-                ],
-                'created_at' => $sender->created_at,
-            ];
-        })->toArray();
-        
+        // Fetch LIVE data from Beem API
+        $beemSenderApproved = [];
+        $beemSenderPending = [];
         $approvedError = null;
         $pendingError = null;
+        
+        try {
+            $beemService = new BeemSmsService();
+            
+            // Fetch approved sender IDs from Beem
+            $approvedResult = $beemService->getSenderNames(null, 'approved');
+            if ($approvedResult['success'] && isset($approvedResult['data'])) {
+                $data = $approvedResult['data'];
+                // Handle different response structures
+                $items = [];
+                if (isset($data['data'])) $items = $data['data'];
+                elseif (isset($data['items'])) $items = $data['items'];
+                elseif (isset($data['sender_names'])) $items = $data['sender_names'];
+                else $items = is_array($data) ? $data : [];
+                
+                foreach ($items as $item) {
+                    if (!is_array($item)) continue;
+                    $beemSenderApproved[] = [
+                        'name' => $item['senderid'] ?? $item['sender_id'] ?? $item['name'] ?? 'Unknown',
+                        'status' => 'approved',
+                        'raw' => [
+                            'sample_content' => $item['sample_content'] ?? $item['description'] ?? '',
+                            'use_case' => $item['use_case'] ?? '',
+                        ],
+                    ];
+                }
+            } else {
+                $approvedError = $approvedResult['error'] ?? 'Failed to fetch approved sender IDs';
+            }
+            
+            // Fetch pending sender IDs from Beem
+            $pendingResult = $beemService->getSenderNames(null, 'pending');
+            if ($pendingResult['success'] && isset($pendingResult['data'])) {
+                $data = $pendingResult['data'];
+                // Handle different response structures
+                $items = [];
+                if (isset($data['data'])) $items = $data['data'];
+                elseif (isset($data['items'])) $items = $data['items'];
+                elseif (isset($data['sender_names'])) $items = $data['sender_names'];
+                else $items = is_array($data) ? $data : [];
+                
+                foreach ($items as $item) {
+                    if (!is_array($item)) continue;
+                    $beemSenderPending[] = [
+                        'name' => $item['senderid'] ?? $item['sender_id'] ?? $item['name'] ?? 'Unknown',
+                        'status' => 'pending',
+                        'raw' => [
+                            'sample_content' => $item['sample_content'] ?? $item['description'] ?? '',
+                            'use_case' => $item['use_case'] ?? '',
+                        ],
+                    ];
+                }
+            } else {
+                $pendingError = $pendingResult['error'] ?? 'Failed to fetch pending sender IDs';
+            }
+        } catch (\Exception $e) {
+            $approvedError = 'Error connecting to Beem API: ' . $e->getMessage();
+            $pendingError = $approvedError;
+        }
 
         return view('admin.sender-ids.index', compact(
             'senderIds', 
