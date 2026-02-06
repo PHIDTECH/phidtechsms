@@ -153,18 +153,7 @@
                                 @endif
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('payments.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl {{ request()->routeIs('payments.*') ? 'bg-white/10 text-white shadow-lg backdrop-blur-sm border border-white/20' : 'hover:bg-white/10 text-primary-200 hover:text-white' }} transition-all duration-200">
-                                <div class="w-8 h-8 {{ request()->routeIs('payments.*') ? 'bg-white/20' : 'bg-white/10' }} rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                                    <i class="fas fa-credit-card text-sm"></i>
-                                </div>
-                                <span class="font-medium">Payments</span>
-                                @if(request()->routeIs('payments.*'))
-                                    <div class="ml-auto w-2 h-2 bg-primary-300 rounded-full"></div>
-                                @endif
-                            </a>
-                        </li>
-                        <li>
+                                                <li>
                             <a href="{{ route('sender-ids.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl {{ request()->routeIs('sender-ids.*') ? 'bg-white/10 text-white shadow-lg backdrop-blur-sm border border-white/20' : 'hover:bg-white/10 text-primary-200 hover:text-white' }} transition-all duration-200">
                                 <div class="w-8 h-8 {{ request()->routeIs('sender-ids.*') ? 'bg-white/20' : 'bg-white/10' }} rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
                                     <i class="fas fa-id-card text-sm"></i>
