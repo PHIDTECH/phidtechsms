@@ -948,6 +948,9 @@
 
     function openAddressBookModal(mode, book = null) {
         elements.modal.mode.value = mode;
+        const contactGroupId = document.getElementById('contactGroupId');
+        const contactGroupSelect = document.getElementById('contactGroupSelect');
+        
         if (mode === 'edit' && book) {
             elements.modal.title.textContent = 'Edit Group';
             elements.modal.name.value = book.name || '';
@@ -955,6 +958,24 @@
             elements.modal.color.value = book.color || '#3B82F6';
             elements.modal.localId.value = book.local_id || '';
             elements.modal.beemId.value = book.beem_id || book.id || '';
+            
+            // Set contact tab fields for adding contacts to this group
+            if (contactGroupId) contactGroupId.value = book.local_id || '';
+            if (contactGroupSelect) contactGroupSelect.value = book.local_id || '';
+            
+            // Switch to Contact tab by default when editing
+            const tabContact = document.getElementById('tabContact');
+            const tabGroup = document.getElementById('tabGroup');
+            const tabContactContent = document.getElementById('tabContactContent');
+            const tabGroupContent = document.getElementById('tabGroupContent');
+            if (tabContact && tabGroup && tabContactContent && tabGroupContent) {
+                tabContact.classList.add('text-teal-600', 'border-teal-500');
+                tabContact.classList.remove('text-gray-500', 'border-transparent');
+                tabGroup.classList.remove('text-teal-600', 'border-teal-500');
+                tabGroup.classList.add('text-gray-500', 'border-transparent');
+                tabContactContent.classList.remove('hidden');
+                tabGroupContent.classList.add('hidden');
+            }
         } else {
             elements.modal.title.textContent = 'Add Group';
             elements.modal.name.value = '';
@@ -962,6 +983,24 @@
             elements.modal.color.value = '#3B82F6';
             elements.modal.localId.value = '';
             elements.modal.beemId.value = '';
+            
+            // Reset contact tab fields
+            if (contactGroupId) contactGroupId.value = '';
+            if (contactGroupSelect) contactGroupSelect.value = '';
+            
+            // Switch to Group tab by default when creating
+            const tabContact = document.getElementById('tabContact');
+            const tabGroup = document.getElementById('tabGroup');
+            const tabContactContent = document.getElementById('tabContactContent');
+            const tabGroupContent = document.getElementById('tabGroupContent');
+            if (tabContact && tabGroup && tabContactContent && tabGroupContent) {
+                tabGroup.classList.add('text-teal-600', 'border-teal-500');
+                tabGroup.classList.remove('text-gray-500', 'border-transparent');
+                tabContact.classList.remove('text-teal-600', 'border-teal-500');
+                tabContact.classList.add('text-gray-500', 'border-transparent');
+                tabGroupContent.classList.remove('hidden');
+                tabContactContent.classList.add('hidden');
+            }
         }
 
         elements.modal.root.classList.remove('hidden');
