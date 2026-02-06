@@ -296,6 +296,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/sync-sender-ids', [AdminController::class, 'syncSenderIds'])->name('sync-sender-ids');
     Route::post('/clear-and-sync-sender-ids', [AdminController::class, 'clearAndSyncSenderIds'])->name('clear-and-sync-sender-ids');
     Route::post('/request-sender-id', [AdminController::class, 'requestSenderId'])->name('request-sender-id');
+    Route::get('/seed-phidtech-sender', [AdminController::class, 'seedPhidtechSender'])->name('seed-phidtech-sender');
     
     // Admin Reports
     Route::prefix('reports')->name('reports.')->group(function () {

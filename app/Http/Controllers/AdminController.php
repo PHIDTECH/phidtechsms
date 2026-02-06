@@ -1218,4 +1218,32 @@ class AdminController extends Controller
             'has_credentials' => $isConfigured
         ]);
     }
+
+    /**
+     * Seed PHIDTECH sender ID for admin use
+     */
+    public function seedPhidtechSender()
+    {
+        try {
+            $sender = SenderID::updateOrCreate(
+                ['sender_name' => 'PHIDTECH'],
+                [
+                    'user_id' => null,
+                    'status' => 'approved',
+                    'business_name' => 'Phidtech SMS',
+                    'business_type' => 'Technology',
+                    'purpose' => 'SMS notifications and marketing',
+                    'sample_message' => 'Your OTP code is 123456',
+                    'reference_number' => 'PHID-' . time(),
+                    'application_date' => now(),
+                    'approved_at' => now(),
+                ]
+            );
+
+            return redirect()->route('admin.sms.compose')->with('success', 'PHIDTECH sender ID added successfully!');
+        } catch (\Exception $e) {
+            Log::error('Failed to seed PHIDTECH sender: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to add PHIDTECH sender ID: ' . $e->getMessage());
+        }
+    }
 }
