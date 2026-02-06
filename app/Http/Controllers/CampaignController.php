@@ -151,11 +151,17 @@ class CampaignController extends Controller
                 $status = $request->schedule_type === 'now' ? 'queued' : 'scheduled';
             }
 
+            // Determine mode based on recipient type
+            $mode = 'quick'; // default for individual
+            if ($request->recipient_type === 'groups') {
+                $mode = 'group';
+            }
+
             // Create campaign aligned to Campaign model fields
             $campaign = Campaign::create([
                 'user_id' => $user->id,
                 'name' => $request->name,
-                'mode' => 'standard',
+                'mode' => $mode,
                 'sender_id' => $senderIdRecord->sender_id, // store human-readable sender name
                 'message' => $request->message,
                 'schedule_at' => $request->schedule_type === 'later' ? $request->schedule_at : null,
