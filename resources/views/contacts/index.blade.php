@@ -147,50 +147,109 @@
 <div id="addressBookModal" class="fixed inset-0 z-40 hidden">
     <div class="absolute inset-0 bg-gray-900/60"></div>
     <div class="relative z-10 flex min-h-screen items-center justify-center px-4">
-        <div class="w-[95%] sm:max-w-lg rounded-2xl bg-white p-4 sm:p-6 shadow-2xl">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 id="addressBookModalTitle" class="text-lg font-semibold text-gray-900">Add Group</h3>
-                    <p class="text-sm text-gray-500">Create a new group</p>
-                </div>
+        <div class="w-[95%] sm:max-w-lg rounded-2xl bg-white shadow-2xl">
+            <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+                <h3 id="addressBookModalTitle" class="text-lg font-semibold text-gray-900">Edit Contact</h3>
                 <button id="closeAddressBookModal" class="text-gray-400 transition hover:text-gray-600">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <form id="addressBookForm" class="mt-6 space-y-5">
-                <input type="hidden" id="addressBookMode" value="create">
-                <input type="hidden" id="addressBookLocalId">
-                <input type="hidden" id="addressBookBeemId">
+            
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-200">
+                <button type="button" id="tabContact" class="flex-1 px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
+                    <i class="fas fa-user-plus"></i> Contact
+                </button>
+                <button type="button" id="tabGroup" class="flex-1 px-4 py-3 text-sm font-medium text-teal-600 border-b-2 border-teal-500 flex items-center justify-center gap-2">
+                    <i class="fas fa-users"></i> Group
+                </button>
+            </div>
 
-                <div>
-                    <label for="addressBookName" class="mb-1 block text-sm font-medium text-gray-700">Group Name <span class="text-red-500">*</span></label>
-                    <input id="addressBookName" type="text" maxlength="255" required
-                        class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+            <div class="p-6">
+                <!-- Info Banner -->
+                <div class="mb-4 flex items-center gap-2 rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-700">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Want to add many contacts? <a href="{{ url('contacts/import') }}" class="text-teal-600 hover:underline">Try importing them</a></span>
                 </div>
 
-                <div>
-                    <label for="addressBookDescription" class="mb-1 block text-sm font-medium text-gray-700">Description</label>
-                    <textarea id="addressBookDescription" rows="3"
-                        class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"></textarea>
+                <!-- Contact Tab Content -->
+                <div id="tabContactContent" class="hidden">
+                    <form id="addContactForm" class="space-y-4">
+                        <input type="hidden" id="contactGroupId" value="">
+                        
+                        <div>
+                            <label class="mb-1 block text-sm font-medium text-gray-700">What contact group would you like to add this to?</label>
+                            <select id="contactGroupSelect" class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select Address Book(s) ...</option>
+                                @foreach($addressBooks ?? [] as $book)
+                                    <option value="{{ $book['local_id'] ?? $book['id'] ?? '' }}">{{ $book['name'] ?? 'Unnamed' }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="contactPhone" class="mb-1 block text-sm font-medium text-gray-700">Phone Number</label>
+                            <input id="contactPhone" type="text" placeholder="255 (ex: 784845785)"
+                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="contactFirstName" class="mb-1 block text-sm font-medium text-gray-700">First Name</label>
+                            <input id="contactFirstName" type="text" placeholder="First Name"
+                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="contactLastName" class="mb-1 block text-sm font-medium text-gray-700">Last Name</label>
+                            <input id="contactLastName" type="text" placeholder="Last Name"
+                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="contactEmail" class="mb-1 block text-sm font-medium text-gray-700">Email</label>
+                            <input id="contactEmail" type="email" placeholder="Email"
+                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="flex items-center justify-end pt-2">
+                            <button type="submit" id="saveContactBtn"
+                                class="inline-flex items-center gap-2 rounded-lg bg-teal-500 px-6 py-2 text-sm font-semibold text-white shadow transition hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+                                Save
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <div>
-                    <label for="addressBookColor" class="mb-1 block text-sm font-medium text-gray-700">Color</label>
-                    <input id="addressBookColor" type="color" value="#3B82F6"
-                        class="h-12 w-full rounded-lg border border-gray-200">
-                </div>
+                <!-- Group Tab Content -->
+                <div id="tabGroupContent">
+                    <form id="addressBookForm" class="space-y-4">
+                        <input type="hidden" id="addressBookMode" value="create">
+                        <input type="hidden" id="addressBookLocalId">
+                        <input type="hidden" id="addressBookBeemId">
 
-                <div class="flex items-center justify-end gap-3">
-                    <button type="button" id="cancelAddressBookBtn"
-                        class="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
-                        Cancel
-                    </button>
-                    <button type="submit" id="saveAddressBookBtn"
-                        class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        <span>Save</span>
-                    </button>
+                        <div>
+                            <label for="addressBookName" class="mb-1 block text-sm font-medium text-gray-700">Contact Group Title</label>
+                            <input id="addressBookName" type="text" maxlength="255" required placeholder="Default"
+                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="addressBookDescription" class="mb-1 block text-sm font-medium text-gray-700">Description</label>
+                            <textarea id="addressBookDescription" rows="3" placeholder="Default group"
+                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+
+                        <input type="hidden" id="addressBookColor" value="#3B82F6">
+
+                        <div class="flex items-center justify-end pt-2">
+                            <button type="submit" id="saveAddressBookBtn"
+                                class="inline-flex items-center gap-2 rounded-lg bg-teal-500 px-6 py-2 text-sm font-semibold text-white shadow transition hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+                                Save
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -369,9 +428,85 @@
             elements.addBtn.addEventListener('click', () => openAddressBookModal('create'));
         }
 
-        elements.modal.cancelBtn.addEventListener('click', closeAddressBookModal);
         elements.modal.closeBtn.addEventListener('click', closeAddressBookModal);
         elements.modal.form.addEventListener('submit', handleAddressBookSubmit);
+
+        // Tab switching
+        const tabContact = document.getElementById('tabContact');
+        const tabGroup = document.getElementById('tabGroup');
+        const tabContactContent = document.getElementById('tabContactContent');
+        const tabGroupContent = document.getElementById('tabGroupContent');
+        const addContactForm = document.getElementById('addContactForm');
+
+        tabContact.addEventListener('click', () => {
+            tabContact.classList.add('text-teal-600', 'border-teal-500');
+            tabContact.classList.remove('text-gray-500', 'border-transparent');
+            tabGroup.classList.remove('text-teal-600', 'border-teal-500');
+            tabGroup.classList.add('text-gray-500', 'border-transparent');
+            tabContactContent.classList.remove('hidden');
+            tabGroupContent.classList.add('hidden');
+        });
+
+        tabGroup.addEventListener('click', () => {
+            tabGroup.classList.add('text-teal-600', 'border-teal-500');
+            tabGroup.classList.remove('text-gray-500', 'border-transparent');
+            tabContact.classList.remove('text-teal-600', 'border-teal-500');
+            tabContact.classList.add('text-gray-500', 'border-transparent');
+            tabGroupContent.classList.remove('hidden');
+            tabContactContent.classList.add('hidden');
+        });
+
+        // Add contact form submission
+        if (addContactForm) {
+            addContactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const groupId = document.getElementById('contactGroupSelect').value || document.getElementById('contactGroupId').value;
+                const phone = document.getElementById('contactPhone').value.trim();
+                const firstName = document.getElementById('contactFirstName').value.trim();
+                const lastName = document.getElementById('contactLastName').value.trim();
+                const email = document.getElementById('contactEmail').value.trim();
+                const name = [firstName, lastName].filter(Boolean).join(' ') || 'Contact';
+
+                if (!phone) {
+                    showNotification('Phone number is required', 'error');
+                    return;
+                }
+
+                if (!groupId) {
+                    showNotification('Please select a contact group', 'error');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('{{ route("contacts.store") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contact_group_id: groupId,
+                            phone: phone,
+                            name: name,
+                            email: email || null,
+                        }),
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        showNotification('Contact added successfully', 'success');
+                        addContactForm.reset();
+                        closeAddressBookModal();
+                        refreshAddressBooks(true);
+                    } else {
+                        showNotification(data.message || data.errors?.[0] || 'Failed to add contact', 'error');
+                    }
+                } catch (error) {
+                    showNotification('Failed to add contact', 'error');
+                }
+            });
+        }
 
         elements.contactsModal.closeBtn.addEventListener('click', closeContactsModal);
         elements.contactsModal.prevBtn.addEventListener('click', () => changeContactsPage(-1));
