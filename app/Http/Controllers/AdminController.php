@@ -1283,4 +1283,22 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Failed to delete sender IDs: ' . $e->getMessage());
         }
     }
+
+    /**
+     * Delete all sender IDs except specified ones
+     */
+    public function deleteAllExcept()
+    {
+        try {
+            // Delete all sender ID applications except NYABIYONZA
+            $deleted = SenderID::where('sender_name', 'not like', '%NYABIYONZA%')
+                ->where('sender_id', 'not like', '%NYABIYONZA%')
+                ->delete();
+
+            return redirect()->route('admin.sender-ids.index')->with('success', "Deleted {$deleted} sender ID applications. Kept only NYABIYONZA.");
+        } catch (\Exception $e) {
+            Log::error('Failed to delete sender IDs: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete sender IDs: ' . $e->getMessage());
+        }
+    }
 }
