@@ -1337,4 +1337,25 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Failed to delete payments: ' . $e->getMessage());
         }
     }
+
+    /**
+     * Update Beem API credentials directly
+     */
+    public function updateBeemCredentials()
+    {
+        try {
+            $apiKey = 'da2c9bc9407ee3ea';
+            $secretKey = 'NGJiMzg3NzA1ZjE5NWE2Y2E1ZDUxODNhMDMxN2Y5ZGE5MDQzNDNjZGM5MTVjOGVjZDk5Mzg0NWQ1YmEyNTEyMw==';
+            
+            Setting::setBeemSettings($apiKey, $secretKey);
+            
+            // Clear all caches
+            \Illuminate\Support\Facades\Cache::flush();
+            
+            return redirect()->route('admin.sender-ids.index')->with('success', 'Beem API credentials updated successfully!');
+        } catch (\Exception $e) {
+            Log::error('Failed to update Beem credentials: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to update Beem credentials: ' . $e->getMessage());
+        }
+    }
 }

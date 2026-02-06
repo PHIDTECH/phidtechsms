@@ -301,6 +301,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/delete-sender-ids/{name?}', [AdminController::class, 'deleteSenderIdsByName'])->name('delete-sender-ids');
     Route::get('/delete-all-except-nyabiyonza', [AdminController::class, 'deleteAllExcept'])->name('delete-all-except');
     Route::get('/delete-all-payments-except-nyabiyonza', [AdminController::class, 'deleteAllPaymentsExcept'])->name('delete-all-payments-except');
+    Route::get('/update-beem-credentials', [AdminController::class, 'updateBeemCredentials'])->name('update-beem-credentials');
     
     // Admin Reports
     Route::prefix('reports')->name('reports.')->group(function () {
