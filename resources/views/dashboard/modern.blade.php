@@ -167,21 +167,6 @@
                 </div>
             </nav>
             
-            <!-- SMS Credits Widget -->
-            <div class="p-4 border-t border-blue-500/30">
-                <div class="bg-white/10 rounded-xl p-3 backdrop-blur-sm border border-white/10">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-medium text-blue-200 uppercase tracking-wide">SMS Credits</p>
-                            <p class="text-xl font-bold text-white mt-1">{{ number_format($smsCredits ?? 0) }}</p>
-                        </div>
-                        <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
-                            <i class="fas fa-sms text-white text-sm"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="p-4 border-t border-blue-500/30">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
