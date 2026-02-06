@@ -467,12 +467,12 @@
                 const name = [firstName, lastName].filter(Boolean).join(' ') || 'Contact';
 
                 if (!phone) {
-                    showNotification('Phone number is required', 'error');
+                    showToast('Phone number is required', 'error');
                     return;
                 }
 
                 if (!groupId) {
-                    showNotification('Please select a contact group', 'error');
+                    showToast('Please select a contact group', 'error');
                     return;
                 }
 
@@ -493,16 +493,18 @@
                     });
 
                     const data = await response.json();
-                    if (response.ok) {
-                        showNotification('Contact added successfully', 'success');
+                    if (response.ok && data.success) {
+                        showToast('Contact added successfully', 'success');
                         addContactForm.reset();
                         closeAddressBookModal();
                         refreshAddressBooks(true);
                     } else {
-                        showNotification(data.message || data.errors?.[0] || 'Failed to add contact', 'error');
+                        const errorMsg = data.message || (data.errors ? (Array.isArray(data.errors) ? data.errors[0] : Object.values(data.errors)[0]) : 'Failed to add contact');
+                        showToast(errorMsg, 'error');
                     }
                 } catch (error) {
-                    showNotification('Failed to add contact', 'error');
+                    console.error('Contact save error:', error);
+                    showToast('Failed to add contact', 'error');
                 }
             });
         }
