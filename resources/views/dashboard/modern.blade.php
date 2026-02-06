@@ -53,114 +53,114 @@
         <!-- Mobile menu overlay -->
         <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"></div>
         <!-- Sidebar -->
-        <div id="sidebar" class="w-64 bg-gradient-to-b from-primary-600 to-primary-800 text-white flex flex-col shadow-2xl fixed inset-y-0 left-0 z-50 transform -translate-x-full lg:translate-x-0 sidebar-transition">
+        <div id="sidebar" class="w-64 bg-white text-gray-800 flex flex-col shadow-xl border-r border-gray-200 fixed inset-y-0 left-0 z-50 transform -translate-x-full lg:translate-x-0 sidebar-transition">
             <!-- Logo -->
-            <div class="p-6 border-b border-primary-500/30">
+            <div class="p-5 border-b border-gray-200">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center shadow">
                         <i class="fas fa-sms text-white text-lg"></i>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold">Phidsms</h1>
-                        <p class="text-xs text-primary-200">SMS Platform</p>
+                        <h1 class="text-xl font-bold text-gray-800">Phidsms</h1>
+                        <p class="text-xs text-gray-500">SMS Platform</p>
                     </div>
                 </div>
             </div>
             
             <!-- User Profile -->
-            <div class="p-6 border-b border-primary-500/30">
+            <div class="p-5 border-b border-gray-200">
                 <div class="flex items-center space-x-3">
                     <div class="relative">
-                        <div class="w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <span class="text-sm font-bold">{{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 2)) }}</span>
+                        <div class="w-11 h-11 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center shadow">
+                            <span class="text-sm font-bold text-white">{{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 2)) }}</span>
                         </div>
-                        <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
+                        <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="font-semibold text-white truncate">{{ Auth::user()->name ?? 'User' }}</p>
+                        <p class="font-semibold text-gray-800 truncate text-sm">{{ Auth::user()->name ?? 'User' }}</p>
                         @if(Auth::user()->phone ?? Auth::user()->phone_number ?? null)
-                            <p class="text-xs text-primary-200 truncate">{{ Auth::user()->phone ?? Auth::user()->phone_number }}</p>
+                            <p class="text-xs text-gray-500 truncate">{{ Auth::user()->phone ?? Auth::user()->phone_number }}</p>
                         @endif
                     </div>
                 </div>
             </div>
             
             <!-- Navigation -->
-            <nav class="flex-1 p-6 space-y-1">
-                <div class="mb-6">
-                    <p class="text-xs font-semibold text-primary-300 uppercase tracking-wider mb-3">Main Menu</p>
+            <nav class="flex-1 p-4 space-y-1">
+                <div class="mb-4">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">Main Menu</p>
                     <ul class="space-y-1">
                         <li>
-                            <a href="{{ route('dashboard') }}" class="group flex items-center space-x-3 p-3 rounded-xl bg-white/10 text-white shadow-lg backdrop-blur-sm border border-white/20">
-                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                                    <i class="fas fa-tachometer-alt text-sm"></i>
+                            <a href="{{ route('dashboard') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg bg-purple-50 text-purple-700 border border-purple-200">
+                                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-tachometer-alt text-sm text-purple-600"></i>
                                 </div>
-                                <span class="font-medium">Dashboard</span>
-                                <div class="ml-auto w-2 h-2 bg-primary-300 rounded-full"></div>
+                                <span class="font-medium text-sm">Dashboard</span>
+                                <div class="ml-auto w-2 h-2 bg-purple-500 rounded-full"></div>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('campaigns.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-paper-plane text-sm"></i>
+                            <a href="{{ route('campaigns.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200">
+                                <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-green-100">
+                                    <i class="fas fa-paper-plane text-sm text-gray-500 group-hover:text-green-600"></i>
                                 </div>
-                                <span class="font-medium">Send SMS</span>
+                                <span class="font-medium text-sm">Send SMS</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('wallet.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-wallet text-sm"></i>
+                            <a href="{{ route('wallet.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200">
+                                <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-blue-100">
+                                    <i class="fas fa-wallet text-sm text-gray-500 group-hover:text-blue-600"></i>
                                 </div>
-                                <span class="font-medium">Buy SMS</span>
+                                <span class="font-medium text-sm">Buy SMS</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('payments.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-credit-card text-sm"></i>
+                            <a href="{{ route('payments.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200">
+                                <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-100">
+                                    <i class="fas fa-credit-card text-sm text-gray-500 group-hover:text-indigo-600"></i>
                                 </div>
-                                <span class="font-medium">Payments</span>
+                                <span class="font-medium text-sm">Payments</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('sender-ids.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-id-card text-sm"></i>
+                            <a href="{{ route('sender-ids.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200">
+                                <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-teal-100">
+                                    <i class="fas fa-id-card text-sm text-gray-500 group-hover:text-teal-600"></i>
                                 </div>
-                                <span class="font-medium">Sender IDs</span>
+                                <span class="font-medium text-sm">Sender IDs</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('sms-templates.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-file-alt text-sm"></i>
+                            <a href="{{ route('sms-templates.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200">
+                                <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-amber-100">
+                                    <i class="fas fa-file-alt text-sm text-gray-500 group-hover:text-amber-600"></i>
                                 </div>
-                                <span class="font-medium">Templates</span>
+                                <span class="font-medium text-sm">Templates</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('contacts.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200 {{ request()->routeIs('contacts.index') ? 'bg-white/10 text-white' : '' }}">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-address-book text-sm"></i>
+                            <a href="{{ route('contacts.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200">
+                                <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-cyan-100">
+                                    <i class="fas fa-address-book text-sm text-gray-500 group-hover:text-cyan-600"></i>
                                 </div>
-                                <span class="font-medium">Manage Contacts</span>
+                                <span class="font-medium text-sm">Manage Contacts</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('contacts.import.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200 {{ request()->routeIs('contacts.import.*') ? 'bg-white/10 text-white' : '' }}">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-upload text-sm"></i>
+                            <a href="{{ route('contacts.import.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200">
+                                <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-rose-100">
+                                    <i class="fas fa-upload text-sm text-gray-500 group-hover:text-rose-600"></i>
                                 </div>
-                                <span class="font-medium">Import Contacts</span>
+                                <span class="font-medium text-sm">Import Contacts</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('reports.index') }}" class="group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                                    <i class="fas fa-chart-bar text-sm"></i>
+                            <a href="{{ route('reports.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200">
+                                <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-violet-100">
+                                    <i class="fas fa-chart-bar text-sm text-gray-500 group-hover:text-violet-600"></i>
                                 </div>
-                                <span class="font-medium">Reports</span>
+                                <span class="font-medium text-sm">Reports</span>
                             </a>
                         </li>
                     </ul>
@@ -168,28 +168,28 @@
             </nav>
             
             <!-- SMS Credits Widget -->
-            <div class="p-6 border-t border-primary-500/30">
-                <div class="bg-gradient-to-r from-primary-500/20 to-primary-400/20 rounded-2xl p-4 backdrop-blur-sm border border-white/10">
+            <div class="p-4 border-t border-gray-200">
+                <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-3 border border-purple-100">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-medium text-primary-200 uppercase tracking-wide">SMS Credits</p>
-                            <p class="text-2xl font-bold text-white mt-1">{{ number_format($smsCredits ?? 0) }} SMS</p>
+                            <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">SMS Credits</p>
+                            <p class="text-xl font-bold text-gray-800 mt-1">{{ number_format($smsCredits ?? 0) }}</p>
                         </div>
-                        <div class="w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <i class="fas fa-sms text-white text-lg"></i>
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center shadow">
+                            <i class="fas fa-sms text-white text-sm"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="p-6 border-t border-primary-500/30">
+            <div class="p-4 border-t border-gray-200">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full group flex items-center space-x-3 p-3 rounded-xl hover:bg-white/10 text-primary-200 hover:text-white transition-all duration-200">
-                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                            <i class="fas fa-sign-out-alt text-sm"></i>
+                    <button type="submit" class="w-full group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-red-50 text-gray-600 hover:text-red-600 transition-all duration-200">
+                        <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-red-100">
+                            <i class="fas fa-sign-out-alt text-sm text-gray-500 group-hover:text-red-600"></i>
                         </div>
-                        <span class="font-medium">Logout</span>
+                        <span class="font-medium text-sm">Logout</span>
                     </button>
                 </form>
             </div>
@@ -277,8 +277,8 @@
                                 <p class="text-3xl font-bold text-gray-900 mb-2">{{ number_format($totalSms ?? 0) }}</p>
                                 
                             </div>
-                            <div class="hidden md:flex w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-paper-plane text-white text-lg"></i>
+                            <div class="hidden md:flex w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-paper-plane text-white text-sm"></i>
                             </div>
                         </div>
                     </div>
@@ -291,8 +291,8 @@
                                 <p class="text-3xl font-bold text-gray-900 mb-2">{{ number_format($smsCredits ?? 4500) }}</p>
                                 
                             </div>
-                            <div class="hidden md:flex w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-coins text-white text-lg"></i>
+                            <div class="hidden md:flex w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-coins text-white text-sm"></i>
                             </div>
                         </div>
                     </div>
@@ -305,8 +305,8 @@
                                 <p class="text-3xl font-bold text-gray-900 mb-2">{{ $activeCampaigns ?? 8 }}</p>
                                 
                             </div>
-                            <div class="hidden md:flex w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-bullhorn text-white text-lg"></i>
+                            <div class="hidden md:flex w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-bullhorn text-white text-sm"></i>
                             </div>
                         </div>
                     </div>
@@ -319,8 +319,8 @@
                                 <p class="text-3xl font-bold text-gray-900 mb-2">{{ number_format($deliveryRate ?? 0, 1) }}%</p>
                                 
                             </div>
-                            <div class="hidden md:flex w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-chart-line text-white text-lg"></i>
+                            <div class="hidden md:flex w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-chart-line text-white text-sm"></i>
                             </div>
                         </div>
                     </div>
@@ -328,10 +328,10 @@
 
                 <!-- Quick Actions -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <a href="{{ route('campaigns.create') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200 group">
+                    <a href="{{ route('campaigns.create') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-green-200 group">
                         <div class="flex items-center space-x-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-paper-plane text-white text-sm"></i>
+                            <div class="w-9 h-9 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-paper-plane text-white text-xs"></i>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">Send SMS</h3>
@@ -341,8 +341,8 @@
                     </a>
                     <a href="{{ route('campaigns.index') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-blue-200 group">
                         <div class="flex items-center space-x-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-bullhorn text-white text-sm"></i>
+                            <div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-bullhorn text-white text-xs"></i>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">View Campaigns</h3>
@@ -352,8 +352,8 @@
                     </a>
                     <a href="{{ route('wallet.index') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-green-200 group">
                         <div class="flex items-center space-x-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-wallet text-white text-sm"></i>
+                            <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-wallet text-white text-xs"></i>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">Buy SMS</h3>
