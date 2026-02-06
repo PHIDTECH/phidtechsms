@@ -97,8 +97,8 @@
 
         <form method="POST" action="{{ route('campaigns.store') }}" id="campaignForm">
             @csrf
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <div class="lg:col-span-2">
+            <div class="max-w-3xl">
+                <div>
                     <div class="bg-white rounded-xl shadow border border-gray-100 overflow-hidden">
                         <!-- Campaign Details -->
                         <div id="step-1" class="p-3 border-b border-gray-100">
@@ -375,29 +375,7 @@
                     </div>
                 </div>
                 
-                <!-- Action Buttons Sidebar -->
-                <div class="lg:col-span-1">
-                    <div class="bg-white rounded-xl shadow border border-gray-200 p-4 sticky top-4">
-                        <div class="space-y-3">
-                            <button type="submit" name="submit_action" value="create" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg border border-gray-300 transition-all duration-200 flex items-center justify-center space-x-2" id="create-campaign-btn">
-                                <i class="fas fa-save"></i>
-                                <span>Save as Draft</span>
-                            </button>
-                            <button type="submit" name="submit_action" value="send" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-lg shadow transition-all duration-200 flex items-center justify-center space-x-2" id="send-campaign-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                <span>Send SMS</span>
-                            </button>
-                        </div>
-                        
-                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
-                            <p class="text-sm text-blue-700">
-                                <i class="fas fa-info-circle mr-1"></i>
-                                SMS Credits: <strong>{{ number_format(auth()->user()->sms_credits, 0) }}</strong>
-                            </p>
-                        </div>
-                    </div>
                 </div>
-             </div>
          </div>
      </form>
  </div>
