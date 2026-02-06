@@ -60,9 +60,6 @@
                         <i class="fas fa-sync-alt mr-2"></i> Sync from Beem
                     </button>
                 </form>
-                <a href="{{ route('admin.cleanup-sender-ids') }}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition-colors flex items-center" onclick="return confirm('Delete all sender IDs except NYABIYONZA and PHIDTECH?')">
-                    <i class="fas fa-trash mr-2"></i> Cleanup Duplicates
-                </a>
             </div>
         </div>
         
