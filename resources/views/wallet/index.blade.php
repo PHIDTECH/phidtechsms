@@ -118,6 +118,77 @@
             </div>
         </div>
     </div>
+
+    <!-- Payment History Section -->
+    <div class="grid gap-6">
+        <div class="rounded-3xl bg-white shadow-lg border border-gray-100 overflow-hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-6 py-5 border-b border-gray-100">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                        <i class="fas fa-credit-card text-green-500"></i>
+                        Payment History
+                    </h3>
+                    <p class="text-sm text-gray-500">Track your SMS purchases and payment status.</p>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                @if(isset($payments) && $payments->count())
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Reference</th>
+                                <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Amount</th>
+                                <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase">SMS Credits</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-100">
+                            @foreach($payments as $payment)
+                                @php
+                                    $statusClasses = [
+                                        'completed' => 'bg-emerald-100 text-emerald-700',
+                                        'pending' => 'bg-amber-100 text-amber-700',
+                                        'failed' => 'bg-rose-100 text-rose-700',
+                                        'cancelled' => 'bg-gray-100 text-gray-700',
+                                    ];
+                                    $statusClass = $statusClasses[$payment->status] ?? 'bg-gray-100 text-gray-700';
+                                @endphp
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-800">
+                                        {{ $payment->reference }}
+                                        <div class="text-xs text-gray-500">{{ ucfirst($payment->payment_method ?? 'N/A') }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-right text-gray-800">
+                                        {{ number_format($payment->amount, 0) }} {{ $payment->currency ?? 'TZS' }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-right text-gray-800 font-semibold">
+                                        {{ number_format($payment->credits ?? 0) }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold {{ $statusClass }}">
+                                            {{ ucfirst($payment->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">
+                                        {{ $payment->created_at?->format('d M Y, H:i') }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="px-6 py-12 text-center space-y-3">
+                        <div class="text-4xl text-gray-300">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <p class="text-gray-600 font-medium">No payments yet</p>
+                        <p class="text-sm text-gray-500">Your payment history will appear here after your first purchase.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

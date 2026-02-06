@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\WalletTransaction;
+use App\Models\Payment;
 use App\Models\AuditLog;
 use App\Services\BeemSmsService;
 use Illuminate\Http\Request;
@@ -34,7 +35,13 @@ class WalletController extends Controller
         // Get monthly statistics
         $monthlyStats = $this->getMonthlyStats($user->id);
         
-        return view('wallet.index', compact('user', 'recentTransactions', 'monthlyStats'));
+        // Get payment history
+        $payments = Payment::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
+        
+        return view('wallet.index', compact('user', 'recentTransactions', 'monthlyStats', 'payments'));
     }
 
     /**

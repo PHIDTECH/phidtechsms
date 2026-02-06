@@ -115,15 +115,7 @@
                                 <span class="font-medium text-sm">Buy SMS</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('payments.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-white/10 text-blue-100 hover:text-white transition-all duration-200">
-                                <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20">
-                                    <i class="fas fa-credit-card text-sm"></i>
-                                </div>
-                                <span class="font-medium text-sm">Payments</span>
-                            </a>
-                        </li>
-                        <li>
+                                                <li>
                             <a href="{{ route('sender-ids.index') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg hover:bg-white/10 text-blue-100 hover:text-white transition-all duration-200">
                                 <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20">
                                     <i class="fas fa-id-card text-sm"></i>
