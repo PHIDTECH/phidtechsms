@@ -376,9 +376,9 @@ class CampaignController extends Controller
                 $recipients = array_map('trim', $phones);
                 $recipients = array_filter($recipients); // Remove empty lines
                 
-                // Validate phone numbers (basic E.164 format)
+                // Validate phone numbers (255XXXXXXXXX format for Tanzania)
                 $recipients = array_filter($recipients, function($phone) {
-                    return preg_match('/^\+[1-9]\d{1,14}$/', $phone);
+                    return preg_match('/^255\d{9}$/', $phone);
                 });
                 break;
         }

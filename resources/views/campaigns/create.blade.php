@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const recipientPhonesEl = document.getElementById('recipient_phones');
     if (recipientPhonesEl) {
         recipientPhonesEl.addEventListener('input', function() {
-            const phones = (this.value || '').split('\n').filter(phone => phone.trim().match(/^\+[1-9]\d{1,14}$/));
+            const phones = (this.value || '').split('\n').filter(phone => phone.trim().match(/^255\d{9}$/));
             const phoneCountEl = document.getElementById('phone-count');
             if (phoneCountEl) phoneCountEl.textContent = String(phones.length);
             updateRecipientCount();
@@ -545,7 +545,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let count = 0;
 
         if (recipientType === 'individual') {
-            const phones = (document.getElementById('recipient_phones')?.value || '').split('\n').filter(phone => phone.trim().match(/^\+[1-9]\d{1,14}$/));
+            const phones = (document.getElementById('recipient_phones')?.value || '').split('\n').filter(phone => phone.trim().match(/^255\d{9}$/));
             count = phones.length;
         } else if (recipientType === 'groups') {
             const selectEl = document.getElementById('recipient_groups_select');
