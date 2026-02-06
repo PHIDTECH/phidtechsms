@@ -1295,7 +1295,11 @@ class AdminController extends Controller
             
             if ($nyabiyonzaUser) {
                 // Delete all sender ID applications except those from NYABIYONZA user
-                $deleted = SenderID::where('user_id', '!=', $nyabiyonzaUser->id)->delete();
+                // Also handle null user_id cases
+                $deleted = SenderID::where(function($q) use ($nyabiyonzaUser) {
+                    $q->where('user_id', '!=', $nyabiyonzaUser->id)
+                      ->orWhereNull('user_id');
+                })->delete();
             } else {
                 // If no NYABIYONZA user found, delete all
                 $deleted = SenderID::count();
