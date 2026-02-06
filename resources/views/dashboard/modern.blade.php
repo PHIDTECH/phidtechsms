@@ -91,12 +91,12 @@
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">Main Menu</p>
                     <ul class="space-y-1">
                         <li>
-                            <a href="{{ route('dashboard') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg bg-purple-50 text-purple-700 border border-purple-200">
-                                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-tachometer-alt text-sm text-purple-600"></i>
+                            <a href="{{ route('dashboard') }}" class="group flex items-center space-x-3 p-2.5 rounded-lg bg-green-50 text-green-700 border border-green-200">
+                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-tachometer-alt text-sm text-green-600"></i>
                                 </div>
                                 <span class="font-medium text-sm">Dashboard</span>
-                                <div class="ml-auto w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <div class="ml-auto w-2 h-2 bg-green-500 rounded-full"></div>
                             </a>
                         </li>
                         <li>
