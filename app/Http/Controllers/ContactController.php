@@ -87,12 +87,17 @@ class ContactController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'phone' => 'required|string',
             'email' => 'nullable|email|max:255',
             'contact_group_id' => 'required|exists:contact_groups,id',
             'date_of_birth' => 'nullable|date|before:today',
         ]);
+
+        // Set default name if not provided
+        if (empty($request->name)) {
+            $request->merge(['name' => 'Contact']);
+        }
 
         // Validate and normalize phone number
         $validation = Contact::validateImportData($request->all());
