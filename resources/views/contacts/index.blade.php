@@ -147,9 +147,9 @@
 <div id="addressBookModal" class="fixed inset-0 z-40 hidden">
     <div class="absolute inset-0 bg-gray-900/60"></div>
     <div class="relative z-10 flex min-h-screen items-center justify-center px-4">
-        <div class="w-[95%] sm:max-w-lg rounded-2xl bg-white shadow-2xl">
-            <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4">
-                <h3 id="addressBookModalTitle" class="text-lg font-semibold text-gray-900">Edit Contact</h3>
+        <div class="w-[90%] sm:max-w-md rounded-2xl bg-white shadow-2xl">
+            <div class="flex items-center justify-between border-b border-gray-100 px-4 py-3">
+                <h3 id="addressBookModalTitle" class="text-base font-semibold text-gray-900">Edit Group</h3>
                 <button id="closeAddressBookModal" class="text-gray-400 transition hover:text-gray-600">
                     <i class="fas fa-times"></i>
                 </button>
@@ -157,29 +157,29 @@
             
             <!-- Tabs -->
             <div class="flex border-b border-gray-200">
-                <button type="button" id="tabContact" class="flex-1 px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
-                    <i class="fas fa-user-plus"></i> Contact
+                <button type="button" id="tabContact" class="flex-1 px-3 py-2 text-xs font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent transition-colors flex items-center justify-center gap-1">
+                    <i class="fas fa-user-plus text-xs"></i> Contact
                 </button>
-                <button type="button" id="tabGroup" class="flex-1 px-4 py-3 text-sm font-medium text-teal-600 border-b-2 border-teal-500 flex items-center justify-center gap-2">
-                    <i class="fas fa-users"></i> Group
+                <button type="button" id="tabGroup" class="flex-1 px-3 py-2 text-xs font-medium text-teal-600 border-b-2 border-teal-500 flex items-center justify-center gap-1">
+                    <i class="fas fa-users text-xs"></i> Group
                 </button>
             </div>
 
-            <div class="p-6">
+            <div class="p-4">
                 <!-- Info Banner -->
-                <div class="mb-4 flex items-center gap-2 rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-700">
+                <div class="mb-3 flex items-center gap-2 rounded-lg bg-blue-50 px-2 py-1.5 text-xs text-blue-700">
                     <i class="fas fa-info-circle"></i>
                     <span>Want to add many contacts? <a href="{{ url('contacts/import') }}" class="text-teal-600 hover:underline">Try importing them</a></span>
                 </div>
 
                 <!-- Contact Tab Content -->
                 <div id="tabContactContent" class="hidden">
-                    <form id="addContactForm" class="space-y-4">
+                    <form id="addContactForm" class="space-y-3">
                         <input type="hidden" id="contactGroupId" value="">
                         
                         <div>
-                            <label class="mb-1 block text-sm font-medium text-gray-700">What contact group would you like to add this to?</label>
-                            <select id="contactGroupSelect" class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                            <label class="mb-1 block text-xs font-medium text-gray-700">What contact group would you like to add this to?</label>
+                            <select id="contactGroupSelect" class="w-full rounded border border-gray-200 px-2 py-1.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                                 <option value="">Select Address Book(s) ...</option>
                                 @foreach($addressBooks ?? [] as $book)
                                     <option value="{{ $book['local_id'] ?? $book['id'] ?? '' }}">{{ $book['name'] ?? 'Unnamed' }}</option>
@@ -188,32 +188,32 @@
                         </div>
 
                         <div>
-                            <label for="contactPhone" class="mb-1 block text-sm font-medium text-gray-700">Phone Number</label>
+                            <label for="contactPhone" class="mb-1 block text-xs font-medium text-gray-700">Phone Number</label>
                             <input id="contactPhone" type="text" placeholder="255 (ex: 784845785)"
-                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                                class="w-full rounded border border-gray-200 px-2 py-1.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                         </div>
 
                         <div>
-                            <label for="contactFirstName" class="mb-1 block text-sm font-medium text-gray-700">First Name</label>
+                            <label for="contactFirstName" class="mb-1 block text-xs font-medium text-gray-700">First Name</label>
                             <input id="contactFirstName" type="text" placeholder="First Name"
-                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                                class="w-full rounded border border-gray-200 px-2 py-1.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                         </div>
 
                         <div>
-                            <label for="contactLastName" class="mb-1 block text-sm font-medium text-gray-700">Last Name</label>
+                            <label for="contactLastName" class="mb-1 block text-xs font-medium text-gray-700">Last Name</label>
                             <input id="contactLastName" type="text" placeholder="Last Name"
-                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                                class="w-full rounded border border-gray-200 px-2 py-1.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                         </div>
 
                         <div>
-                            <label for="contactEmail" class="mb-1 block text-sm font-medium text-gray-700">Email</label>
+                            <label for="contactEmail" class="mb-1 block text-xs font-medium text-gray-700">Email</label>
                             <input id="contactEmail" type="email" placeholder="Email"
-                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                                class="w-full rounded border border-gray-200 px-2 py-1.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                         </div>
 
-                        <div class="flex items-center justify-end pt-2">
+                        <div class="flex items-center justify-end pt-1">
                             <button type="submit" id="saveContactBtn"
-                                class="inline-flex items-center gap-2 rounded-lg bg-teal-500 px-6 py-2 text-sm font-semibold text-white shadow transition hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+                                class="inline-flex items-center gap-1 rounded bg-teal-500 px-4 py-1.5 text-sm font-semibold text-white shadow transition hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1">
                                 Save
                             </button>
                         </div>
@@ -222,28 +222,28 @@
 
                 <!-- Group Tab Content -->
                 <div id="tabGroupContent">
-                    <form id="addressBookForm" class="space-y-4">
+                    <form id="addressBookForm" class="space-y-3">
                         <input type="hidden" id="addressBookMode" value="create">
                         <input type="hidden" id="addressBookLocalId">
                         <input type="hidden" id="addressBookBeemId">
 
                         <div>
-                            <label for="addressBookName" class="mb-1 block text-sm font-medium text-gray-700">Contact Group Title</label>
+                            <label for="addressBookName" class="mb-1 block text-xs font-medium text-gray-700">Contact Group Title</label>
                             <input id="addressBookName" type="text" maxlength="255" required placeholder="Default"
-                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                                class="w-full rounded border border-gray-200 px-2 py-1.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                         </div>
 
                         <div>
-                            <label for="addressBookDescription" class="mb-1 block text-sm font-medium text-gray-700">Description</label>
-                            <textarea id="addressBookDescription" rows="3" placeholder="Default group"
-                                class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"></textarea>
+                            <label for="addressBookDescription" class="mb-1 block text-xs font-medium text-gray-700">Description</label>
+                            <textarea id="addressBookDescription" rows="2" placeholder="Default group"
+                                class="w-full rounded border border-gray-200 px-2 py-1.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"></textarea>
                         </div>
 
                         <input type="hidden" id="addressBookColor" value="#3B82F6">
 
-                        <div class="flex items-center justify-end pt-2">
+                        <div class="flex items-center justify-end pt-1">
                             <button type="submit" id="saveAddressBookBtn"
-                                class="inline-flex items-center gap-2 rounded-lg bg-teal-500 px-6 py-2 text-sm font-semibold text-white shadow transition hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+                                class="inline-flex items-center gap-1 rounded bg-teal-500 px-4 py-1.5 text-sm font-semibold text-white shadow transition hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1">
                                 Save
                             </button>
                         </div>
