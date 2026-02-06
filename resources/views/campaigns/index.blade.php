@@ -11,7 +11,7 @@
             <h1 class="text-2xl font-bold text-gray-800">SMS Campaigns</h1>
         </div>
         <a href="{{ route('campaigns.create') }}" class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 font-semibold">
-            <i class="fas fa-plus"></i> New Campaign
+            <i class="fas fa-plus"></i> Create New SMS
         </a>
     </div>
 
