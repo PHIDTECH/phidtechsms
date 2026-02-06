@@ -49,14 +49,18 @@ class AdminSmsController extends Controller
             ? round(($stats['delivered_this_month'] / $totalSent) * 100, 1) 
             : 0;
 
-        // Get approved sender IDs (only PHIDTECH for admin)
-        $senderIds = SenderID::where('status', 'approved')
-            ->where('sender_name', 'PHIDTECH')
-            ->orderBy('sender_name')
-            ->get();
+        // For admin, always provide PHIDTECH as the default sender ID
+        $senderIds = collect([
+            (object)[
+                'id' => 0,
+                'sender_id' => 'PHIDTECH',
+                'sender_name' => 'PHIDTECH',
+                'status' => 'approved'
+            ]
+        ]);
 
-        // Check if sender ID is configured
-        $hasSenderId = $senderIds->count() > 0;
+        // PHIDTECH is always available for admin
+        $hasSenderId = true;
 
         // Get recent messages sent by admin
         $recentMessages = SmsMessage::where('user_id', Auth::id())
@@ -77,11 +81,16 @@ class AdminSmsController extends Controller
      */
     public function compose()
     {
-        // Get approved sender IDs (only PHIDTECH for admin)
-        $senderIds = SenderID::where('status', 'approved')
-            ->where('sender_name', 'PHIDTECH')
-            ->orderBy('sender_name')
-            ->get();
+        // For admin, always provide PHIDTECH as the default sender ID
+        // This is hardcoded since PHIDTECH is registered in Beem for admin use
+        $senderIds = collect([
+            (object)[
+                'id' => 0,
+                'sender_id' => 'PHIDTECH',
+                'sender_name' => 'PHIDTECH',
+                'status' => 'approved'
+            ]
+        ]);
 
         // Get users for selection
         $users = User::where('is_active', true)
