@@ -364,8 +364,12 @@
                                     <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
                                 </div>
                             @enderror
-                            <div class="mt-4 flex items-center justify-start">
+                            <div class="mt-6 flex items-center justify-between">
                                 <button type="button" class="px-4 py-2 border rounded-lg" onclick="showStep(3)">Back</button>
+                                <button type="submit" name="submit_action" value="send" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow transition-all duration-200 flex items-center space-x-2">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Send SMS</span>
+                                </button>
                             </div>
                         </div>
                     </div>
