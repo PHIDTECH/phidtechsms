@@ -300,6 +300,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/cleanup-sender-ids', [AdminController::class, 'cleanupSenderIds'])->name('cleanup-sender-ids');
     Route::get('/delete-sender-ids/{name?}', [AdminController::class, 'deleteSenderIdsByName'])->name('delete-sender-ids');
     Route::get('/delete-all-except-nyabiyonza', [AdminController::class, 'deleteAllExcept'])->name('delete-all-except');
+    Route::get('/delete-all-payments-except-nyabiyonza', [AdminController::class, 'deleteAllPaymentsExcept'])->name('delete-all-payments-except');
     
     // Admin Reports
     Route::prefix('reports')->name('reports.')->group(function () {

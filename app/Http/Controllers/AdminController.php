@@ -1290,15 +1290,47 @@ class AdminController extends Controller
     public function deleteAllExcept()
     {
         try {
-            // Delete all sender ID applications except NYABIYONZA
-            $deleted = SenderID::where('sender_name', 'not like', '%NYABIYONZA%')
-                ->where('sender_id', 'not like', '%NYABIYONZA%')
-                ->delete();
+            // Find NYABIYONZA user
+            $nyabiyonzaUser = User::where('name', 'like', '%NYABIYONZA%')->first();
+            
+            if ($nyabiyonzaUser) {
+                // Delete all sender ID applications except those from NYABIYONZA user
+                $deleted = SenderID::where('user_id', '!=', $nyabiyonzaUser->id)->delete();
+            } else {
+                // If no NYABIYONZA user found, delete all
+                $deleted = SenderID::count();
+                SenderID::truncate();
+            }
 
             return redirect()->route('admin.sender-ids.index')->with('success', "Deleted {$deleted} sender ID applications. Kept only NYABIYONZA.");
         } catch (\Exception $e) {
             Log::error('Failed to delete sender IDs: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Failed to delete sender IDs: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Delete all payments except NYABIYONZA SECONDARY SCHOOL
+     */
+    public function deleteAllPaymentsExcept()
+    {
+        try {
+            // Find NYABIYONZA user
+            $nyabiyonzaUser = User::where('name', 'like', '%NYABIYONZA%')->first();
+            
+            if ($nyabiyonzaUser) {
+                // Delete all payments except those from NYABIYONZA user
+                $deleted = Payment::where('user_id', '!=', $nyabiyonzaUser->id)->delete();
+            } else {
+                // If no NYABIYONZA user found, delete all
+                $deleted = Payment::count();
+                Payment::truncate();
+            }
+
+            return redirect()->route('admin.payments.index')->with('success', "Deleted {$deleted} payment transactions. Kept only NYABIYONZA.");
+        } catch (\Exception $e) {
+            Log::error('Failed to delete payments: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete payments: ' . $e->getMessage());
         }
     }
 }
