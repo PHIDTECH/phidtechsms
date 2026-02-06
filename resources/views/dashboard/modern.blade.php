@@ -330,8 +330,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <a href="{{ route('campaigns.create') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200 group">
                         <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-paper-plane text-white"></i>
+                            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-paper-plane text-white text-sm"></i>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">Send SMS</h3>
@@ -341,8 +341,8 @@
                     </a>
                     <a href="{{ route('campaigns.index') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-blue-200 group">
                         <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-bullhorn text-white"></i>
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-bullhorn text-white text-sm"></i>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">View Campaigns</h3>
@@ -352,8 +352,8 @@
                     </a>
                     <a href="{{ route('wallet.index') }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 hover:border-green-200 group">
                         <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                <i class="fas fa-wallet text-white"></i>
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-wallet text-white text-sm"></i>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">Buy SMS</h3>
