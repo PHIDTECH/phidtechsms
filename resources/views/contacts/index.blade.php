@@ -378,7 +378,6 @@
             description: document.getElementById('addressBookDescription'),
             color: document.getElementById('addressBookColor'),
             saveBtn: document.getElementById('saveAddressBookBtn'),
-            cancelBtn: document.getElementById('cancelAddressBookBtn'),
             closeBtn: document.getElementById('closeAddressBookModal'),
         },
         contactsModal: {
