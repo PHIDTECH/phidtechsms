@@ -62,13 +62,11 @@ class Campaign extends Model
                 $campaign->mode = 'quick';
             }
 
-            $allowedStatuses = ['draft','queued','processing','completed','failed','cancelled','pending','scheduled','sending'];
-            if (!in_array($campaign->status, $allowedStatuses, true)) {
-                if ($campaign->status === 'pending') {
-                    $campaign->status = 'queued';
-                } elseif ($campaign->status === 'sending') {
-                    $campaign->status = 'processing';
-                }
+            // Convert statuses that may not exist in database enum
+            if ($campaign->status === 'pending') {
+                $campaign->status = 'queued';
+            } elseif ($campaign->status === 'sending') {
+                $campaign->status = 'processing';
             }
         });
     }
