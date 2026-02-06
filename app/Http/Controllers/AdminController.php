@@ -740,25 +740,17 @@ class AdminController extends Controller
             }
             
             if (empty($errors)) {
-                return response()->json([
-                    'success' => true,
-                    'message' => "Successfully synchronized {$syncedCount} sender IDs from Beem API",
-                    'synced_count' => $syncedCount
-                ]);
+                return redirect()->route('admin.sender-ids.index')
+                    ->with('success', "Successfully synchronized {$syncedCount} sender IDs from Beem API");
             } else {
-                return response()->json([
-                    'success' => false,
-                    'error' => implode('; ', $errors),
-                    'synced_count' => $syncedCount
-                ]);
+                return redirect()->route('admin.sender-ids.index')
+                    ->with('warning', "Synced {$syncedCount} sender IDs. Errors: " . implode('; ', $errors));
             }
             
         } catch (\Exception $e) {
             Log::error('Sender ID sync error: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'error' => 'Failed to sync sender IDs: ' . $e->getMessage()
-            ]);
+            return redirect()->route('admin.sender-ids.index')
+                ->with('error', 'Failed to sync sender IDs: ' . $e->getMessage());
         }
     }
     
@@ -797,8 +789,9 @@ class AdminController extends Controller
                 
                 if (!$existingSender) {
                     // Create new sender ID record with all required fields
+                    // Use admin user_id (1) for system sender IDs
                     SenderID::create([
-                        'user_id' => null, // System/admin sender ID (available to all users)
+                        'user_id' => Auth::id() ?? 1,
                         'sender_id' => $senderId,
                         'use_case' => $useCase,
                         'sample_messages' => $sampleContent,
