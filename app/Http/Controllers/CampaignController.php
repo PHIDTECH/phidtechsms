@@ -34,7 +34,7 @@ class CampaignController extends Controller
         
         $stats = [
             'total_campaigns' => Campaign::where('user_id', $user->id)->count(),
-            'active_campaigns' => Campaign::where('user_id', $user->id)->whereIn('status', ['sending', 'scheduled'])->count(),
+            'active_campaigns' => Campaign::where('user_id', $user->id)->whereIn('status', ['processing', 'scheduled', 'queued'])->count(),
             'completed_campaigns' => Campaign::where('user_id', $user->id)->where('status', 'completed')->count(),
             'total_messages_sent' => SmsMessage::where('user_id', $user->id)->where('status', 'sent')->count(),
             'delivery_rate' => $this->calculateDeliveryRate($user->id),
@@ -271,7 +271,7 @@ class CampaignController extends Controller
         
         // Update campaign status
         $campaign->update([
-            'status' => 'sending',
+            'status' => 'processing',
             'started_at' => now(),
         ]);
         
