@@ -49,8 +49,9 @@ class AdminSmsController extends Controller
             ? round(($stats['delivered_this_month'] / $totalSent) * 100, 1) 
             : 0;
 
-        // Get approved sender IDs
+        // Get approved sender IDs (only PHIDTECH for admin)
         $senderIds = SenderID::where('status', 'approved')
+            ->where('sender_name', 'PHIDTECH')
             ->orderBy('sender_name')
             ->get();
 
@@ -76,8 +77,9 @@ class AdminSmsController extends Controller
      */
     public function compose()
     {
-        // Get approved sender IDs
+        // Get approved sender IDs (only PHIDTECH for admin)
         $senderIds = SenderID::where('status', 'approved')
+            ->where('sender_name', 'PHIDTECH')
             ->orderBy('sender_name')
             ->get();
 
