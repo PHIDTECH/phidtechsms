@@ -1246,4 +1246,32 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Failed to add PHIDTECH sender ID: ' . $e->getMessage());
         }
     }
+
+    /**
+     * Cleanup sender IDs - delete duplicates and keep only specified ones
+     */
+    public function cleanupSenderIds()
+    {
+        try {
+            // Delete all sender IDs except NYABIYONZA and PHIDTECH
+            $deleted = SenderID::whereNotIn('sender_name', ['NYABIYONZA', 'PHIDTECH'])->delete();
+            
+            // Also delete any duplicates of NYABIYONZA (keep only the first one)
+            $nyabiyonza = SenderID::where('sender_name', 'NYABIYONZA')->orderBy('id', 'asc')->first();
+            if ($nyabiyonza) {
+                SenderID::where('sender_name', 'NYABIYONZA')->where('id', '!=', $nyabiyonza->id)->delete();
+            }
+            
+            // Same for PHIDTECH
+            $phidtech = SenderID::where('sender_name', 'PHIDTECH')->orderBy('id', 'asc')->first();
+            if ($phidtech) {
+                SenderID::where('sender_name', 'PHIDTECH')->where('id', '!=', $phidtech->id)->delete();
+            }
+
+            return redirect()->route('admin.sender-ids.index')->with('success', "Cleanup complete! Deleted {$deleted} sender ID applications. Kept NYABIYONZA and PHIDTECH only.");
+        } catch (\Exception $e) {
+            Log::error('Failed to cleanup sender IDs: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to cleanup sender IDs: ' . $e->getMessage());
+        }
+    }
 }

@@ -16,9 +16,9 @@
                 <p class="text-red-100 mb-0">Review and manage sender ID applications from users</p>
             </div>
             <div class="flex-shrink-0">
-                <button class="bg-white text-red-600 hover:bg-red-50 px-4 py-2 rounded-lg font-medium transition-colors duration-200" onclick="refreshPage()">
+                <a href="{{ route('admin.sender-ids.index') }}" class="bg-white text-red-600 hover:bg-red-50 px-4 py-2 rounded-lg font-medium transition-colors duration-200">
                     <i class="fas fa-sync-alt mr-2"></i> Refresh
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -54,9 +54,15 @@
                 Beem Africa Sender IDs
             </h2>
             <div class="flex gap-3">
-                <button onclick="syncBeemSenderIds()" class="bg-[#6144f2] hover:bg-[#5a3de8] text-white px-4 py-2 rounded-lg text-sm transition-colors flex items-center" id="sync-beem-btn">
-                    <i class="fas fa-sync-alt mr-2"></i> Sync from Beem
-                </button>
+                <form action="{{ route('admin.sync-sender-ids') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="bg-[#6144f2] hover:bg-[#5a3de8] text-white px-4 py-2 rounded-lg text-sm transition-colors flex items-center" id="sync-beem-btn">
+                        <i class="fas fa-sync-alt mr-2"></i> Sync from Beem
+                    </button>
+                </form>
+                <a href="{{ route('admin.cleanup-sender-ids') }}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition-colors flex items-center" onclick="return confirm('Delete all sender IDs except NYABIYONZA and PHIDTECH?')">
+                    <i class="fas fa-trash mr-2"></i> Cleanup Duplicates
+                </a>
             </div>
         </div>
         
