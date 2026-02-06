@@ -512,28 +512,39 @@ setInterval(function() {
 // Beem Sender ID Functions
 function syncBeemSenderIds() {
     const btn = document.getElementById('sync-beem-btn');
+    if (!btn) {
+        console.error('Sync button not found');
+        return;
+    }
+    
     btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Syncing...';
     btn.disabled = true;
     
-    fetch('{{ route('admin.sync-sender-ids') }}', {
+    fetch('{{ route("admin.sync-sender-ids") }}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.status);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             showNotification('Sender IDs synchronized successfully from Beem Africa!', 'success');
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() => window.location.reload(), 1500);
         } else {
-            showNotification('Failed to sync sender IDs: ' + data.error, 'error');
+            showNotification('Failed to sync sender IDs: ' + (data.error || 'Unknown error'), 'error');
         }
     })
     .catch(error => {
-        console.error('Error:', error);
-        showNotification('Network error occurred while syncing sender IDs', 'error');
+        console.error('Sync Error:', error);
+        showNotification('Error syncing sender IDs: ' + error.message, 'error');
     })
     .finally(() => {
         btn.innerHTML = '<i class="fas fa-sync-alt mr-2"></i> Sync from Beem';
@@ -629,11 +640,14 @@ function showNotification(message, type) {
 
 // Close modal when clicking outside
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('requestSenderModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            hideRequestSenderForm();
-        }
-    });
+    const requestModal = document.getElementById('requestSenderModal');
+    if (requestModal) {
+        requestModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideRequestSenderForm();
+            }
+        });
+    }
 });
 </script>
 
