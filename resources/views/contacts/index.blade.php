@@ -285,6 +285,7 @@
                                 <th class="px-4 py-3 text-left font-semibold text-gray-500">Email</th>
                                 <th class="px-4 py-3 text-left font-semibold text-gray-500">Location</th>
                                 <th class="px-4 py-3 text-left font-semibold text-gray-500">Status</th>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-500">Action</th>
                             </tr>
                         </thead>
                         <tbody id="contactsTableBody" class="divide-y divide-gray-100 bg-white"></tbody>
@@ -1326,7 +1327,7 @@
                 : '<span class="text-gray-400">—</span>';
 
             return `
-                <tr>
+                <tr data-contact-id="${contact.id}">
                     <td class="px-4 py-3">
                         <div class="font-semibold text-gray-800">${escapeHtml(contact.name || contact.phone || 'Unknown')}</div>
                         ${contact.email ? `<div class="text-xs text-gray-500 mt-1">${escapeHtml(contact.email)}</div>` : ''}
@@ -1338,6 +1339,12 @@
                     <td class="px-4 py-3 text-gray-600">${contact.email ? escapeHtml(contact.email) : '<span class="text-gray-400">—</span>'}</td>
                     <td class="px-4 py-3 text-gray-600">${location}</td>
                     <td class="px-4 py-3">${badge}</td>
+                    <td class="px-4 py-3">
+                        <button type="button" data-action="delete-contact" data-contact-id="${contact.id}" 
+                            class="inline-flex items-center gap-1 rounded bg-red-50 px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-100 transition">
+                            <i class="fas fa-trash text-[10px]"></i> Delete
+                        </button>
+                    </td>
                 </tr>
             `;
         }).join('');
@@ -1345,6 +1352,42 @@
         elements.contactsModal.body.innerHTML = rows;
         elements.contactsModal.table.classList.remove('hidden');
         elements.contactsModal.empty.classList.add('hidden');
+        
+        // Bind delete contact events
+        elements.contactsModal.body.querySelectorAll('[data-action="delete-contact"]').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const contactId = btn.dataset.contactId;
+                if (!contactId) return;
+                
+                if (!confirm('Are you sure you want to delete this contact?')) return;
+                
+                try {
+                    const response = await fetch(`{{ url('contacts') }}/${contactId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                    });
+                    
+                    const data = await response.json();
+                    if (response.ok && data.success) {
+                        showToast('Contact deleted successfully', 'success');
+                        // Remove the row from table
+                        const row = btn.closest('tr');
+                        if (row) row.remove();
+                        // Refresh the contacts list
+                        loadContacts(state.viewing.page);
+                        refreshAddressBooks(false);
+                    } else {
+                        showToast(data.message || 'Failed to delete contact', 'error');
+                    }
+                } catch (error) {
+                    console.error('Delete contact error:', error);
+                    showToast('Failed to delete contact', 'error');
+                }
+            });
+        });
     }
 
     function showToast(message, type = 'success') {
